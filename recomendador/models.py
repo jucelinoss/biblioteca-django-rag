@@ -1,5 +1,6 @@
 import numpy as np
 from django.db import models
+from django.contrib.auth.models import User
 
 from core.models import livro
 
@@ -34,3 +35,25 @@ class LivroEmbedding(models.Model):
     class Meta:
         verbose_name = 'Embedding de Obra'
         verbose_name_plural = 'Embeddings'
+
+
+class RequisicaoIaLog(models.Model):
+    TIPO_CHOICES = [
+        ('CHAT', 'Chat Conversacional RAG'),
+        ('RECOMENDACAO', 'Recomendacao Semantica'),
+    ]
+
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Usuario')
+    tipo_servico = models.CharField(max_length=20, choices=TIPO_CHOICES, verbose_name='Tipo de Servico')
+    entrada = models.JSONField(verbose_name='Dados de Entrada')
+    saida = models.JSONField(verbose_name='Dados de Saida')
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Timestamp')
+
+    class Meta:
+        verbose_name = 'Log de Requisicao de IA'
+        verbose_name_plural = 'Logs de Requisicao de IA'
+        ordering = ['-timestamp']
+
+    def __str__(self):
+        usr = self.usuario.username if self.usuario else 'Anonimo'
+        return f'{self.tipo_servico} - {usr} - {self.timestamp}'

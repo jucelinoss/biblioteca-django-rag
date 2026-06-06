@@ -54,7 +54,7 @@ python -m venv .venv
 # source .venv/bin/activate
 # Ativar no Windows (PowerShell):
 # .\.venv\Scripts\Activate.ps1
-
+cd 
 pip install -r requirements.txt
 
 # Banco + dados de teste

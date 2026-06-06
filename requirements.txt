@@ -17,3 +17,8 @@ python-dotenv>=1.0
 
 # Camada analítica — painel /metricas/ (Plotly)
 plotly>=5.20
+
+# API REST e Autenticação JWT (Fase 3)
+djangorestframework>=3.14.0
+djangorestframework-simplejwt>=5.2.0
+drf-spectacular>=0.26.0
