@@ -44,36 +44,85 @@ Sistema web para gestão de biblioteca universitária com **duas camadas de IA i
 
 ---
 
-## Setup rápido
+## Setup e Execução (Aplicação & API)
 
-```bash
-# O comando abaixo deve ser rodado na raiz do repositório (onde estão manage.py e requirements.txt)
+Siga os passos abaixo para configurar o ambiente virtual, instalar as dependências e iniciar o servidor que hospeda tanto o sistema web clássico quanto a API REST.
+
+### 1. Clonagem e Configuração do Ambiente Virtual
+
+Abra o terminal (preferencialmente PowerShell no Windows) na pasta raiz do projeto e execute:
+
+```powershell
+# Criar o ambiente virtual
 python -m venv .venv
 
-# Ativar no Linux/Mac:
+# Ativar o ambiente virtual:
+# No Windows (PowerShell):
+.\.venv\Scripts\Activate.ps1
+# No Linux/macOS:
 # source .venv/bin/activate
-# Ativar no Windows (PowerShell):
-# .\.venv\Scripts\Activate.ps1
-cd 
+
+# Instalar as dependências do projeto
 pip install -r requirements.txt
+```
 
-# Banco + dados de teste
+### 2. Configurações de Banco de Dados e Carga Inicial
+
+```powershell
+# Executar as migrações do banco de dados (SQLite)
 python manage.py migrate
-# Linux/Mac:
-# python manage.py shell < seed.py
-# Windows (PowerShell):
-Get-Content seed.py | python manage.py shell
 
-# Embeddings do acervo (Fase 1 — HuggingFace, roda 100% local)
+# Popular o banco de dados com dados de teste e usuários iniciais (idempotente)
+# No Windows (PowerShell):
+Get-Content seed.py | python manage.py shell
+# No Linux/macOS:
+# python manage.py shell < seed.py
+```
+
+### 3. Configuração de Inteligência Artificial (Embeddings & Chat RAG)
+
+```powershell
+# Gerar embeddings do acervo (Fase 1 — HuggingFace, roda 100% local no primeiro run)
 python manage.py gerar_embeddings
 
-# Chat RAG (Fase 2 — Groq): criar .env com GROQ_API_KEY=gsk_... (gere em console.groq.com)
-cp .env.example .env   # modelo incluso no repositório; edite com sua key
-
-# Subir servidor
-python manage.py runserver
-# abrir http://localhost:8000
+# Configurar as variáveis de ambiente para o Chat RAG (Fase 2 — Groq)
+# Copie o template do arquivo .env.example para .env e edite-o inserindo sua chave GROQ_API_KEY
+# No Windows (PowerShell):
+Copy-Item .env.example .env
+# No Linux/macOS:
+# cp .env.example .env
 ```
+
+### 4. Executando a Aplicação e a API
+
+O Django irá subir tanto a aplicação web quanto a API REST sob a mesma instância do servidor:
+
+```powershell
+# Iniciar o servidor de desenvolvimento
+python manage.py runserver
+```
+
+---
+
+## Como Acessar a Aplicação e a API REST
+
+Uma vez com o servidor ativo em `http://localhost:8000`, você poderá acessar:
+
+### 🖥️ Aplicação Web (Interface do Usuário)
+* **Dashboard / Página Inicial:** [http://localhost:8000](http://localhost:8000)
+* **Chat Conversacional RAG:** [http://localhost:8000/chat/](http://localhost:8000/chat/)
+* **Painel Administrativo do Django:** [http://localhost:8000/admin/](http://localhost:8000/admin/) (Para gerenciar registros diretamente via painel)
+
+### 🔌 API REST (v1)
+A API REST utiliza **Django REST Framework (DRF)** e autenticação baseada em **JWT** (SimpleJWT).
+* **Documentação OpenAPI 3.0 (Swagger):** [http://localhost:8000/api/v1/docs/](http://localhost:8000/api/v1/docs/)
+* **Painel do Cliente SPA:** [http://localhost:8000/api/v1/dashboard-cliente/](http://localhost:8000/api/v1/dashboard-cliente/) (Interface interativa desenvolvida para simular e demonstrar o consumo da API com login, CRUD e RAG)
+* **Endpoints Principais:**
+  * **Obter Token (Login):** `POST /api/v1/auth/token/`
+  * **Atualizar Token (Refresh):** `POST /api/v1/auth/token/refresh/`
+  * **IA - Recomendação Semântica (Cosseno):** `POST /api/v1/ia/recomendar/` (requer token JWT)
+  * **IA - Assistente Chat RAG (Groq):** `POST /api/v1/ia/chat/` (requer token JWT)
+  * **CRUD completo:** `/api/v1/livros/`, `/api/v1/pessoas/` e `/api/v1/emprestimos/` (requer token JWT)
 
 ---
 

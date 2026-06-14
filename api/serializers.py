@@ -1,3 +1,4 @@
+import re
 from rest_framework import serializers
 from core.models import pessoa, livro, emprestimo
 
@@ -12,11 +13,29 @@ class PessoaSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("A funcao deve ser 'Leitor' ou 'Bibliotecario'.")
         return value
 
+    def validate_celular(self, value):
+        if value:
+            # Validação simples de celular BR: +55 (11) 91234-5678, ou apenas digitos
+            digits = re.sub(r'\D', '', value)
+            if len(digits) < 10 or len(digits) > 11:
+                raise serializers.ValidationError("Celular deve conter 10 ou 11 dígitos.")
+        return value
+
 
 class LivroSerializer(serializers.ModelSerializer):
     class Meta:
         model = livro
         fields = ['id', 'titulo', 'autor', 'tipo_obra', 'isbn', 'ano', 'exemplares_total', 'exemplares_disponiveis']
+
+    def validate_isbn(self, value):
+        if value:
+            # Valida ISBN-10 ou ISBN-13 basico
+            val = value.replace("-", "").replace(" ", "")
+            if len(val) not in (10, 13):
+                raise serializers.ValidationError("O ISBN deve ter 10 ou 13 caracteres numéricos.")
+            if not val.isdigit() and not (len(val) == 10 and val[:-1].isdigit() and val[-1].upper() == 'X'):
+                raise serializers.ValidationError("Formato de ISBN inválido.")
+        return value
 
     def validate(self, attrs):
         tipo_obra = attrs.get('tipo_obra', getattr(self.instance, 'tipo_obra', None))
@@ -43,7 +62,7 @@ class EmprestimoSerializer(serializers.ModelSerializer):
         read_only_fields = ['data_saida', 'data_devolucao_prevista']
 
     def validate(self, attrs):
-        # Validações extras para criação de novos empréstimos
+        # Valizações extras para criação de novos empréstimos
         if not self.instance:
             livro_obj = attrs.get('livro')
             leitor_obj = attrs.get('leitor')
@@ -67,3 +86,24 @@ class EmprestimoSerializer(serializers.ModelSerializer):
             'email': instance.leitor.email
         }
         return rep
+
+
+class RecomendacaoIASerializer(serializers.Serializer):
+    livro_id = serializers.IntegerField(required=True)
+    quantidade = serializers.IntegerField(required=False, default=5, min_value=1, max_value=10)
+
+
+class ChatIASerializer(serializers.Serializer):
+    pergunta = serializers.CharField(
+        required=True,
+        max_length=1000,
+        error_messages={
+            'max_length': 'A pergunta excede o limite máximo de 1000 caracteres no prompt de IA.',
+            'blank': 'A pergunta não pode estar vazia.'
+        }
+    )
+
+    def validate_pergunta(self, value):
+        if len(value.strip()) < 3:
+            raise serializers.ValidationError("A pergunta deve ter pelo menos 3 caracteres.")
+        return value

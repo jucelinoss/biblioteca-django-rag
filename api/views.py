@@ -9,7 +9,7 @@ from core.models import pessoa, livro, emprestimo
 from recomendador.models import LivroEmbedding, RequisicaoIaLog
 from recomendador.services import recomendar_livros, _carregar_matriz
 from recomendador.chat.interface import responder_pergunta
-from .serializers import PessoaSerializer, LivroSerializer, EmprestimoSerializer
+from .serializers import PessoaSerializer, LivroSerializer, EmprestimoSerializer, RecomendacaoIASerializer, ChatIASerializer
 from .permissions import IsBibliotecarioOrReadOnly
 
 
@@ -42,24 +42,11 @@ class RecomendacaoIAView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        livro_id = request.data.get('livro_id')
-        quantidade = request.data.get('quantidade', 5)
-
-        if not livro_id:
-            return Response(
-                {"error": "O campo 'livro_id' e obrigatorio."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        try:
-            quantidade = int(quantidade)
-            if quantidade <= 0:
-                raise ValueError
-        except ValueError:
-            return Response(
-                {"error": "O campo 'quantidade' deve ser um numero inteiro positivo."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        serializer = RecomendacaoIASerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        livro_id = serializer.validated_data['livro_id']
+        quantidade = serializer.validated_data['quantidade']
 
         try:
             alvo_emb = LivroEmbedding.objects.get(livro_id=livro_id)
@@ -128,13 +115,10 @@ class ChatIAView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        pergunta = request.data.get('pergunta', '').strip()
-
-        if not pergunta:
-            return Response(
-                {"error": "O campo 'pergunta' e obrigatorio."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        serializer = ChatIASerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        pergunta = serializer.validated_data['pergunta'].strip()
 
         try:
             resp = responder_pergunta(pergunta)
