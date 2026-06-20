@@ -143,6 +143,8 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Documentacao da API da Biblioteca RAG com IA (Trabalho Final - T2)',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SECURITY': [{'jwt': []}],
+    'SCHEMA_PATH_PREFIX': r'/api/v1',
 }
 
 # Configuração de logs rotativos do Django

@@ -1,0 +1,902 @@
+openapi: 3.0.3
+info:
+  title: Biblioteca RAG API
+  version: 1.0.0
+  description: Documentacao da API da Biblioteca RAG com IA (Trabalho Final - T2)
+paths:
+  /api/v1/auth/token/:
+    post:
+      operationId: auth_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      security:
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/v1/auth/token/refresh/:
+    post:
+      operationId: auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      security:
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/v1/emprestimos/:
+    get:
+      operationId: emprestimos_list
+      tags:
+      - emprestimos
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Emprestimo'
+          description: ''
+    post:
+      operationId: emprestimos_create
+      tags:
+      - emprestimos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Emprestimo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Emprestimo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Emprestimo'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Emprestimo'
+          description: ''
+  /api/v1/emprestimos/{id}/:
+    get:
+      operationId: emprestimos_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Emprestimo.
+        required: true
+      tags:
+      - emprestimos
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Emprestimo'
+          description: ''
+    put:
+      operationId: emprestimos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Emprestimo.
+        required: true
+      tags:
+      - emprestimos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Emprestimo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Emprestimo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Emprestimo'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Emprestimo'
+          description: ''
+    patch:
+      operationId: emprestimos_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Emprestimo.
+        required: true
+      tags:
+      - emprestimos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmprestimo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmprestimo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmprestimo'
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Emprestimo'
+          description: ''
+    delete:
+      operationId: emprestimos_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Emprestimo.
+        required: true
+      tags:
+      - emprestimos
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/ia/chat/:
+    post:
+      operationId: ia_chat_create
+      description: Responde a perguntas em linguagem natural sobre o acervo, buscando
+        no banco vetorial local e gerando resposta com Groq RAG.
+      summary: Assistente Conversacional RAG
+      tags:
+      - ia
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatIA'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChatIA'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChatIA'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+          description: ''
+  /api/v1/ia/recomendar/:
+    post:
+      operationId: ia_recomendar_create
+      description: Gera recomendacoes de livros similares a partir de um livro de
+        origem usando similaridade cosseno de embeddings.
+      summary: Recomendacao Semantica de Livros
+      tags:
+      - ia
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecomendacaoIA'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RecomendacaoIA'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RecomendacaoIA'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecomendacaoResponse'
+          description: ''
+  /api/v1/livros/:
+    get:
+      operationId: livros_list
+      tags:
+      - livros
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Livro'
+          description: ''
+    post:
+      operationId: livros_create
+      tags:
+      - livros
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Livro'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Livro'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Livro'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Livro'
+          description: ''
+  /api/v1/livros/{id}/:
+    get:
+      operationId: livros_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Obra.
+        required: true
+      tags:
+      - livros
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Livro'
+          description: ''
+    put:
+      operationId: livros_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Obra.
+        required: true
+      tags:
+      - livros
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Livro'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Livro'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Livro'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Livro'
+          description: ''
+    patch:
+      operationId: livros_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Obra.
+        required: true
+      tags:
+      - livros
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLivro'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLivro'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLivro'
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Livro'
+          description: ''
+    delete:
+      operationId: livros_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Obra.
+        required: true
+      tags:
+      - livros
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/pessoas/:
+    get:
+      operationId: pessoas_list
+      tags:
+      - pessoas
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pessoa'
+          description: ''
+    post:
+      operationId: pessoas_create
+      tags:
+      - pessoas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pessoa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pessoa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Pessoa'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pessoa'
+          description: ''
+  /api/v1/pessoas/{id}/:
+    get:
+      operationId: pessoas_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Pessoa.
+        required: true
+      tags:
+      - pessoas
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pessoa'
+          description: ''
+    put:
+      operationId: pessoas_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Pessoa.
+        required: true
+      tags:
+      - pessoas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pessoa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pessoa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Pessoa'
+        required: true
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pessoa'
+          description: ''
+    patch:
+      operationId: pessoas_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Pessoa.
+        required: true
+      tags:
+      - pessoas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPessoa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPessoa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPessoa'
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pessoa'
+          description: ''
+    delete:
+      operationId: pessoas_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Um valor inteiro único que identifica este Pessoa.
+        required: true
+      tags:
+      - pessoas
+      security:
+      - jwtAuth: []
+      - jwt: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    ChatIA:
+      type: object
+      properties:
+        pergunta:
+          type: string
+          maxLength: 1000
+      required:
+      - pergunta
+    ChatResponse:
+      type: object
+      properties:
+        pergunta:
+          type: string
+          description: Pergunta feita pelo usuário
+        resposta:
+          type: string
+          description: Resposta contextualizada gerada pela IA (RAG)
+        obras_citadas:
+          type: array
+          items:
+            $ref: '#/components/schemas/LivroMinimal'
+          description: Lista de obras do acervo que sustentam a resposta
+        timestamp:
+          type: string
+          format: date-time
+          description: Momento em que a resposta foi processada
+      required:
+      - obras_citadas
+      - pergunta
+      - resposta
+      - timestamp
+    Emprestimo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        livro:
+          type: integer
+          title: Obra
+        leitor:
+          type: integer
+        data_saida:
+          type: string
+          format: date
+          readOnly: true
+          title: Saida
+        data_devolucao_prevista:
+          type: string
+          format: date
+          readOnly: true
+          nullable: true
+          title: Devolucao prevista
+        data_devolucao_real:
+          type: string
+          format: date
+          nullable: true
+          title: Devolucao real
+        status:
+          type: string
+          readOnly: true
+        atrasado:
+          type: string
+          readOnly: true
+      required:
+      - atrasado
+      - data_devolucao_prevista
+      - data_saida
+      - id
+      - leitor
+      - livro
+      - status
+    FuncaoEnum:
+      enum:
+      - Leitor
+      - Bibliotecario
+      type: string
+      description: |-
+        * `Leitor` - Leitor
+        * `Bibliotecario` - Bibliotecario
+    Livro:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        titulo:
+          type: string
+          maxLength: 200
+        autor:
+          type: string
+          maxLength: 100
+        tipo_obra:
+          allOf:
+          - $ref: '#/components/schemas/TipoObraEnum'
+          title: Tipo de Obra
+        isbn:
+          type: string
+          nullable: true
+          maxLength: 20
+        ano:
+          type: integer
+          nullable: true
+        exemplares_total:
+          type: integer
+          title: Total
+        exemplares_disponiveis:
+          type: integer
+          title: Disponiveis
+      required:
+      - autor
+      - id
+      - titulo
+    LivroMinimal:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID do livro
+        titulo:
+          type: string
+          description: Título do livro
+      required:
+      - id
+      - titulo
+    PatchedEmprestimo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        livro:
+          type: integer
+          title: Obra
+        leitor:
+          type: integer
+        data_saida:
+          type: string
+          format: date
+          readOnly: true
+          title: Saida
+        data_devolucao_prevista:
+          type: string
+          format: date
+          readOnly: true
+          nullable: true
+          title: Devolucao prevista
+        data_devolucao_real:
+          type: string
+          format: date
+          nullable: true
+          title: Devolucao real
+        status:
+          type: string
+          readOnly: true
+        atrasado:
+          type: string
+          readOnly: true
+    PatchedLivro:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        titulo:
+          type: string
+          maxLength: 200
+        autor:
+          type: string
+          maxLength: 100
+        tipo_obra:
+          allOf:
+          - $ref: '#/components/schemas/TipoObraEnum'
+          title: Tipo de Obra
+        isbn:
+          type: string
+          nullable: true
+          maxLength: 20
+        ano:
+          type: integer
+          nullable: true
+        exemplares_total:
+          type: integer
+          title: Total
+        exemplares_disponiveis:
+          type: integer
+          title: Disponiveis
+    PatchedPessoa:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 50
+        email:
+          type: string
+          maxLength: 50
+        celular:
+          type: string
+          nullable: true
+          maxLength: 20
+        funcao:
+          $ref: '#/components/schemas/FuncaoEnum'
+        nascimento:
+          type: string
+          format: date
+          nullable: true
+        ativo:
+          type: boolean
+    Pessoa:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 50
+        email:
+          type: string
+          maxLength: 50
+        celular:
+          type: string
+          nullable: true
+          maxLength: 20
+        funcao:
+          $ref: '#/components/schemas/FuncaoEnum'
+        nascimento:
+          type: string
+          format: date
+          nullable: true
+        ativo:
+          type: boolean
+      required:
+      - email
+      - funcao
+      - id
+      - nome
+    RecomendacaoIA:
+      type: object
+      properties:
+        livro_id:
+          type: integer
+        quantidade:
+          type: integer
+          maximum: 10
+          minimum: 1
+          default: 5
+      required:
+      - livro_id
+    RecomendacaoResponse:
+      type: object
+      properties:
+        livro_origem:
+          allOf:
+          - $ref: '#/components/schemas/LivroMinimal'
+          description: Livro que serviu como base para a recomendação
+        recomendacoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recomendado'
+          description: Lista de obras sugeridas por proximidade semântica
+      required:
+      - livro_origem
+      - recomendacoes
+    Recomendado:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID do livro recomendado
+        titulo:
+          type: string
+          description: Título do livro recomendado
+        autor:
+          type: string
+          description: Autor do livro recomendado
+        score_similaridade:
+          type: number
+          format: double
+          description: Score de similaridade cosseno (0.0 a 1.0)
+      required:
+      - autor
+      - id
+      - score_similaridade
+      - titulo
+    TipoObraEnum:
+      enum:
+      - BIBLIOGRAFIA
+      - TESE_DISSERTACAO
+      - MONOGRAFIA
+      type: string
+      description: |-
+        * `BIBLIOGRAFIA` - Bibliografia
+        * `TESE_DISSERTACAO` - Tese/Dissertacao
+        * `MONOGRAFIA` - Monografia
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

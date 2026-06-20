@@ -9,8 +9,17 @@ from core.models import pessoa, livro, emprestimo
 from recomendador.models import LivroEmbedding, RequisicaoIaLog
 from recomendador.services import recomendar_livros, _carregar_matriz
 from recomendador.chat.interface import responder_pergunta
-from .serializers import PessoaSerializer, LivroSerializer, EmprestimoSerializer, RecomendacaoIASerializer, ChatIASerializer
+from .serializers import (
+    PessoaSerializer,
+    LivroSerializer,
+    EmprestimoSerializer,
+    RecomendacaoIASerializer,
+    ChatIASerializer,
+    RecomendacaoResponseSerializer,
+    ChatResponseSerializer,
+)
 from .permissions import IsBibliotecarioOrReadOnly
+from drf_spectacular.utils import extend_schema
 
 
 class PessoaViewSet(viewsets.ModelViewSet):
@@ -41,6 +50,12 @@ class EmprestimoViewSet(viewsets.ModelViewSet):
 class RecomendacaoIAView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    @extend_schema(
+        summary="Recomendacao Semantica de Livros",
+        description="Gera recomendacoes de livros similares a partir de um livro de origem usando similaridade cosseno de embeddings.",
+        request=RecomendacaoIASerializer,
+        responses={200: RecomendacaoResponseSerializer}
+    )
     def post(self, request, *args, **kwargs):
         serializer = RecomendacaoIASerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -114,6 +129,12 @@ class RecomendacaoIAView(APIView):
 class ChatIAView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    @extend_schema(
+        summary="Assistente Conversacional RAG",
+        description="Responde a perguntas em linguagem natural sobre o acervo, buscando no banco vetorial local e gerando resposta com Groq RAG.",
+        request=ChatIASerializer,
+        responses={200: ChatResponseSerializer}
+    )
     def post(self, request, *args, **kwargs):
         serializer = ChatIASerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

@@ -107,3 +107,26 @@ class ChatIASerializer(serializers.Serializer):
         if len(value.strip()) < 3:
             raise serializers.ValidationError("A pergunta deve ter pelo menos 3 caracteres.")
         return value
+
+
+class LivroMinimalSerializer(serializers.Serializer):
+    id = serializers.IntegerField(help_text="ID do livro")
+    titulo = serializers.CharField(help_text="Título do livro")
+
+
+class RecomendacaoResponseSerializer(serializers.Serializer):
+    class RecomendadoSerializer(serializers.Serializer):
+        id = serializers.IntegerField(help_text="ID do livro recomendado")
+        titulo = serializers.CharField(help_text="Título do livro recomendado")
+        autor = serializers.CharField(help_text="Autor do livro recomendado")
+        score_similaridade = serializers.FloatField(help_text="Score de similaridade cosseno (0.0 a 1.0)")
+
+    livro_origem = LivroMinimalSerializer(help_text="Livro que serviu como base para a recomendação")
+    recomendacoes = RecomendadoSerializer(many=True, help_text="Lista de obras sugeridas por proximidade semântica")
+
+
+class ChatResponseSerializer(serializers.Serializer):
+    pergunta = serializers.CharField(help_text="Pergunta feita pelo usuário")
+    resposta = serializers.CharField(help_text="Resposta contextualizada gerada pela IA (RAG)")
+    obras_citadas = LivroMinimalSerializer(many=True, help_text="Lista de obras do acervo que sustentam a resposta")
+    timestamp = serializers.DateTimeField(help_text="Momento em que a resposta foi processada")

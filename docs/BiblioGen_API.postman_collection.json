@@ -1,0 +1,701 @@
+{
+	"info": {
+		"_postman_id": "8a065f49-5f21-4fa3-9f5a-3dfcf8b965f7",
+		"name": "BiblioGen API",
+		"description": "Coleção de requisições para a API REST do projeto BiblioGen (Trabalho Final T2 - APIs para IA). Habilita fluxo automatizado de token JWT.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "Obter Token (Login)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.access) {",
+									"    pm.environment.set(\"jwt_access_token\", jsonData.access);",
+									"    pm.collectionVariables.set(\"jwt_access_token\", jsonData.access);",
+									"    console.log(\"Access Token JWT salvo com sucesso!\");",
+									"}",
+									"if (jsonData.refresh) {",
+									"    pm.environment.set(\"jwt_refresh_token\", jsonData.refresh);",
+									"    pm.collectionVariables.set(\"jwt_refresh_token\", jsonData.refresh);",
+									"}",
+									"pm.test(\"Login efetuado com sucesso (Status 200)\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Retornou tokens JWT\", function () {",
+									"    pm.expect(jsonData).to.have.property('access');",
+									"    pm.expect(jsonData).to.have.property('refresh');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"bibliotecario\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/token/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"token",
+								""
+							]
+						},
+						"description": "Gera os tokens JWT Access e Refresh utilizando as credenciais cadastradas."
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Token (Refresh)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.access) {",
+									"    pm.environment.set(\"jwt_access_token\", jsonData.access);",
+									"    pm.collectionVariables.set(\"jwt_access_token\", jsonData.access);",
+									"}",
+									"pm.test(\"Token atualizado com sucesso\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonData).to.have.property('access');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\": \"{{jwt_refresh_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/token/refresh/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"token",
+								"refresh",
+								""
+							]
+						},
+						"description": "Recebe o token de atualização (refresh) e retorna um novo token de acesso (access)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Livros",
+			"item": [
+				{
+					"name": "Listar Livros",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Retornou lista de livros com sucesso\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.json()).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/livros/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"livros",
+								""
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Clean Code",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Livro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (pm.response.code === 201) {",
+									"    pm.collectionVariables.set(\"ultimo_livro_id\", jsonData.id);",
+									"}",
+									"pm.test(\"Livro criado com sucesso\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Refactoring: Improving the Design of Existing Code\",\n    \"autor\": \"Martin Fowler\",\n    \"tipo_obra\": \"BIBLIOGRAFIA\",\n    \"isbn\": \"978-0134757599\",\n    \"ano\": 2018,\n    \"exemplares_total\": 3,\n    \"exemplares_disponiveis\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/livros/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"livros",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalhar Livro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Detalhou livro com sucesso\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.json()).to.have.property('id');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/livros/{{ultimo_livro_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"livros",
+								"{{ultimo_livro_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Livro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Livro atualizado com sucesso\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Refactoring (2nd Edition)\",\n    \"autor\": \"Martin Fowler\",\n    \"tipo_obra\": \"BIBLIOGRAFIA\",\n    \"isbn\": \"978-0134757599\",\n    \"ano\": 2018,\n    \"exemplares_total\": 4,\n    \"exemplares_disponiveis\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/livros/{{ultimo_livro_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"livros",
+								"{{ultimo_livro_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Livro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Livro deletado com sucesso\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/livros/{{ultimo_livro_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"livros",
+								"{{ultimo_livro_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pessoas",
+			"item": [
+				{
+					"name": "Listar Pessoas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Listou pessoas com sucesso\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/pessoas/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pessoas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Pessoa (Leitor)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (pm.response.code === 201) {",
+									"    pm.collectionVariables.set(\"ultimo_leitor_id\", jsonData.id);",
+									"}",
+									"pm.test(\"Pessoa cadastrada com sucesso\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Anderson Silva\",\n    \"email\": \"anderson@ufg.br\",\n    \"celular\": \"62999998888\",\n    \"funcao\": \"Leitor\",\n    \"ativo\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/pessoas/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pessoas",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Empréstimos",
+			"item": [
+				{
+					"name": "Listar Empréstimos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Listou emprestimos\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/emprestimos/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"emprestimos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Empréstimo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (pm.response.code === 201) {",
+									"    pm.collectionVariables.set(\"ultimo_emprestimo_id\", jsonData.id);",
+									"}",
+									"pm.test(\"Empréstimo realizado com sucesso\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    pm.expect(jsonData).to.have.property('data_devolucao_prevista');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"livro\": 1,\n    \"leitor\": {{ultimo_leitor_id}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/emprestimos/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"emprestimos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Devolver Empréstimo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Empréstimo devolvido e atualizado\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonData.status).to.equal(\"DEVOLVIDO\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"livro\": 1,\n    \"leitor\": {{ultimo_leitor_id}},\n    \"data_devolucao_real\": \"2026-06-20\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/emprestimos/{{ultimo_emprestimo_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"emprestimos",
+								"{{ultimo_emprestimo_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inteligência Artificial",
+			"item": [
+				{
+					"name": "Recomendação Semântica",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Retornou recomendações da IA\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonData).to.have.property('livro_origem');",
+									"    pm.expect(jsonData.recomendacoes).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"livro_id\": 1,\n    \"quantidade\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/ia/recomendar/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ia",
+								"recomendar",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Chat Conversacional RAG",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Chat IA respondeu com sucesso\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonData).to.have.property('resposta');",
+									"    pm.expect(jsonData.obras_citadas).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pergunta\": \"Quais livros tratam de desenvolvimento de software no acervo?\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/ia/chat/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ia",
+								"chat",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt_access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "jwt_access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "jwt_refresh_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "ultimo_livro_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "ultimo_leitor_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "ultimo_emprestimo_id",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}
