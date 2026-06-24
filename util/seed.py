@@ -10,7 +10,14 @@ usuarios de teste (biblio1, leitor1), 4 pessoas, ~30 obras (22 bibliografias,
 As 30 obras foram escolhidas para dar massa suficiente ao modulo de
 recomendacao semantica (acervo minimo para validar top-5).
 """
+import os
+import sys
 import django
+
+# Setup Django (adjusted for subfolder)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, BASE_DIR)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'biblioteca_mvp.settings')
 django.setup()
 
 from datetime import date, timedelta
@@ -106,7 +113,6 @@ teses = [
          autor='Ricardo Teixeira Pereira', ano=2022),
 ]
 for t in teses:
-    # sem ISBN; usa titulo como identificador unico via get_or_create com titulo
     if not livro.objects.filter(titulo=t['titulo']).exists():
         livro.objects.create(**t, tipo_obra='TESE_DISSERTACAO', exemplares_total=1, exemplares_disponiveis=1)
 

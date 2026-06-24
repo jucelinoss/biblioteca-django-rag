@@ -1,8 +1,8 @@
 # Biblioteca MVP — Sistema de Gestão com Camada de IA
 
-Sistema web para gestão de biblioteca universitária com **duas camadas de IA integradas**: recomendação semântica de obras (HuggingFace, offline) e assistente conversacional sobre o acervo (Groq + Llama 3.3, cloud). Projeto de trabalho da disciplina **INF0330 — Framework de Desenvolvimento Web para Consumo de Modelos Treinados de Inteligência Artificial** (UFG, Prof. Ronaldo M. da Costa).
+Sistema web para gestão de biblioteca universitária com **duas camadas de IA integradas**: recomendação semântica de obras (HuggingFace, offline) e assistente conversacional sobre o acervo (Groq + Llama 3.3, cloud).
 
-![Dashboard do sistema — visão do bibliotecário com contadores do acervo, distribuição por tipo de obra e acesso ao chat com IA](docs/img/dashboard.png)
+![Painel da SPA Cliente — interface moderna que consome a API REST com autenticação JWT e chat RAG](docs/img/dashboard_cliente.png)
 
 ---
 
@@ -373,11 +373,9 @@ biblioteca_mvp/
 ## Documentação adicional
 
 - [docs/mvp_features.md](docs/mvp_features.md) — inventário técnico com ER + sequence diagrams + gap analysis
-- [docs/demo_script.md](docs/demo_script.md) — roteiro da apresentação final 06/06 (bloco a bloco, falas, backup de perguntas)
-- [docs/sprint1.md](docs/sprint1.md) — backlog + Gantt + DoD + rituais de time
+- [docs/demo_script.md](docs/demo_script.md) — roteiro da apresentação final (bloco a bloco, falas, backup de perguntas)
 - [docs/seguranca_chat.md](docs/seguranca_chat.md) — 5 camadas de defesa (flowchart) + 7 testes adversariais
 - [docs/conformidade.md](docs/conformidade.md) — nota LGPD (rascunho, Vanderson revisa)
-- [docs/metricas_sprint1.md](docs/metricas_sprint1.md) — latência, cobertura, qualidade, métricas do chat RAG
 - [docs/benchmark_modelos.md](docs/benchmark_modelos.md) — comparativo de modelos de embeddings
 - [docs/avaliacao_qualitativa.md](docs/avaliacao_qualitativa.md) — template de avaliação com 10 obras × 5 avaliadores
 - [docs/adr/001-modelo-embeddings.md](docs/adr/001-modelo-embeddings.md) — decisão arquitetural APROVADA PROVISORIAMENTE
@@ -386,12 +384,9 @@ biblioteca_mvp/
 
 ---
 
-## Disciplina e grupo
+## Grupo de desenvolvimento
 
-**INF0330 — Framework de Desenvolvimento Web para Consumo de Modelos Treinados de Inteligência Artificial** (UFG 2025.2 — TA)
-**Professor:** Ronaldo Martins da Costa
-**Prazo de entrega final:** 06/06/2026
-**Grupo (5 componentes):**
+**Componentes:**
 - Antonio Jansen — arquitetura, coordenação, integração da IA
 - Jucelino Santos — backend, modelagem, motor de recomendação
 - Givanildo Gramacho — pesquisa, PoC, avaliação de modelos

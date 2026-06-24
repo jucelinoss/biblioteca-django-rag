@@ -105,7 +105,7 @@ def _sanitizar_pergunta(pergunta: str) -> Tuple[str, bool]:
     return p, False
 
 
-LIMITE_ACERVO_COMPLETO = 200  # se tiver ate isto, passa TUDO pro LLM
+LIMITE_ACERVO_COMPLETO = 100  # se tiver ate isto, passa TUDO pro LLM
 
 def buscar_obras_relevantes(pergunta: str, top_k: int = 6) -> List:
     """Retorna as obras do acervo mais similares semanticamente a pergunta."""
@@ -133,10 +133,12 @@ def carregar_acervo_para_contexto(pergunta: str) -> Tuple[List, bool]:
     """Carrega as obras que serao inseridas no CONTEXTO_ACERVO do LLM.
 
     Estrategia:
-    - Se o acervo total for <= LIMITE_ACERVO_COMPLETO (padrao 200 obras),
+    - Se o usuário estiver perguntando especificamente por monografias, teses
+      ou dissertações, fazemos um pré-filtro híbrido por tipo_obra. Isso evita
+      estourar o limite de tokens TPM no modelo da Groq e garante precisão.
+    - Se o acervo total for <= LIMITE_ACERVO_COMPLETO (padrao 100 obras),
       retorna TODAS as obras, ordenadas por similaridade semantica com a
-      pergunta. Isso permite que o LLM responda perguntas metadados
-      (autor, ISBN, ano, tipo, contagens) sem depender do acerto do retrieval.
+      pergunta.
     - Se o acervo for maior, cai para busca por top-30 mais similares.
 
     Retorna (lista_obras, usou_acervo_completo). O booleano sinaliza ao
@@ -145,6 +147,25 @@ def carregar_acervo_para_contexto(pergunta: str) -> Tuple[List, bool]:
     total = livro.objects.count()
     if total == 0:
         return [], False
+
+    # 1. Filtro Híbrido Inteligente (Metadata Pre-filtering)
+    # Se a pergunta pedir explicitamente monografias, teses ou dissertações,
+    # filtramos prioritariamente essas obras para economizar tokens e dar resposta perfeita.
+    p_lower = pergunta.lower()
+    quer_monografia = 'monografia' in p_lower or 'monografias' in p_lower
+    quer_tese = 'tese' in p_lower or 'teses' in p_lower or 'dissertac' in p_lower or 'dissertaç' in p_lower
+
+    if quer_monografia or quer_tese:
+        tipos_filtrar = []
+        if quer_monografia:
+            tipos_filtrar.append('MONOGRAFIA')
+        if quer_tese:
+            tipos_filtrar.append('TESE_DISSERTACAO')
+        
+        obras_filtradas = list(livro.objects.filter(tipo_obra__in=tipos_filtrar))
+        if obras_filtradas:
+            obras_filtradas.sort(key=lambda o: o.titulo)
+            return obras_filtradas, True
 
     matriz, ids = _carregar_matriz()
 

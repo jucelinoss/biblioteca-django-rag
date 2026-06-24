@@ -1,6 +1,6 @@
 # Changelog
 
-Histórico de entregas do `biblioteca_mvp`. Segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e versionamento semântico ajustado ao cronograma de sprints da disciplina INF0330.
+Histórico de entregas do `biblioteca_mvp`. Segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e versionamento semântico ajustado ao cronograma de sprints da disciplina.
 
 ## [0.3.0] — Sprint 1 concluído — 2026-04-21
 

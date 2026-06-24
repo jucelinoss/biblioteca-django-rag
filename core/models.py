@@ -18,6 +18,18 @@ class pessoa(models.Model):
     nascimento = models.DateField(null=True, blank=True, verbose_name='Nascimento')
     ativo = models.BooleanField(default=True, verbose_name='Ativo')
 
+    def clean(self):
+        super().clean()
+        if self.celular:
+            import re
+            digits = re.sub(r'\D', '', self.celular)
+            if len(digits) < 10 or len(digits) > 11:
+                raise ValidationError('Celular deve conter 10 ou 11 dígitos.')
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f'{self.nome} ({self.funcao})'
 
@@ -54,6 +66,16 @@ class livro(models.Model):
             raise ValidationError('Exemplares disponiveis nao pode ser maior que total.')
         if self.tipo_obra == 'BIBLIOGRAFIA' and not self.isbn:
             raise ValidationError('ISBN e obrigatorio para Bibliografia.')
+        if self.isbn:
+            val = self.isbn.replace("-", "").replace(" ", "")
+            if len(val) not in (10, 13):
+                raise ValidationError('O ISBN deve ter 10 ou 13 caracteres numéricos.')
+            if not val.isdigit() and not (len(val) == 10 and val[:-1].isdigit() and val[-1].upper() == 'X'):
+                raise ValidationError('Formato de ISBN inválido.')
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.titulo} - {self.autor}'
@@ -93,6 +115,7 @@ class emprestimo(models.Model):
         qualquer etapa falhar, nenhuma alteracao persiste e o contador de
         exemplares disponiveis mantem-se consistente.
         """
+        self.full_clean()
         eh_novo = self.pk is None
 
         with transaction.atomic():

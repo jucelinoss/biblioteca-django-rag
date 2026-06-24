@@ -31,7 +31,7 @@ class ServicesRecomendacaoTests(TestCase):
         ]):
             l = livro.objects.create(
                 titulo=titulo, autor=autor, tipo_obra=tipo,
-                isbn=f'978-TEST-{i:04d}',
+                isbn=f'97800000000{i:02d}',
                 exemplares_total=1, exemplares_disponiveis=1,
             )
             cls.livros.append(l)
