@@ -114,6 +114,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'EXCEPTION_HANDLER': 'api.utils.custom_exception_handler',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
 }
 
 from datetime import timedelta
@@ -143,7 +145,7 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Documentacao da API da Biblioteca RAG com IA (Trabalho Final - T2)',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    'SECURITY': [{'jwt': []}],
+    'SECURITY': [{'jwtAuth': []}],
     'SCHEMA_PATH_PREFIX': r'/api/v1',
 }
 

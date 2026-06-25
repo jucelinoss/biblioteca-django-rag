@@ -12,7 +12,11 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import warnings
 from typing import List
+
+# Silencia o aviso inofensivo de falta de token do Hugging Face Hub
+warnings.filterwarnings("ignore", message=".*unauthenticated requests to the HF Hub.*")
 
 import numpy as np
 from django.conf import settings

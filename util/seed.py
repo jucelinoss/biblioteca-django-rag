@@ -14,11 +14,13 @@ import os
 import sys
 import django
 
-# Setup Django (adjusted for subfolder)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, BASE_DIR)
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'biblioteca_mvp.settings')
-django.setup()
+# Setup Django (adjusted for subfolder) if run as standalone script
+if '__file__' in globals():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.insert(0, BASE_DIR)
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'biblioteca_mvp.settings')
+    django.setup()
+
 
 from datetime import date, timedelta
 from django.contrib.auth.models import Group, Permission, User
@@ -28,6 +30,13 @@ from core.models import pessoa, livro, emprestimo
 if not User.objects.filter(username='admin').exists():
     User.objects.create_superuser('admin', 'admin@test.com', 'admin123')
     print('superuser admin/admin123 criado')
+else:
+    u = User.objects.get(username='admin')
+    u.set_password('admin123')
+    u.is_superuser = True
+    u.is_staff = True
+    u.save()
+    print('superuser admin atualizado com senha admin123')
 
 perms_view = Permission.objects.filter(codename__startswith='view_', content_type__app_label='core')
 perms_edit = Permission.objects.filter(content_type__app_label='core').exclude(codename__startswith='delete_')
@@ -39,13 +48,25 @@ grupo_edit, _ = Group.objects.get_or_create(name='Editor')
 grupo_edit.permissions.set(perms_edit)
 print('grupos Visualizador/Editor configurados')
 
-if not User.objects.filter(username='biblio1').exists():
+u_biblio = User.objects.filter(username='biblio1').first()
+if not u_biblio:
     u = User.objects.create_user('biblio1', 'biblio@test.com', 'biblio123', first_name='Ana', last_name='Biblioteca')
     u.groups.add(grupo_edit)
+    print('usuario biblio1 criado com senha biblio123')
+else:
+    u_biblio.set_password('biblio123')
+    u_biblio.save()
+    print('usuario biblio1 atualizado com senha biblio123')
 
-if not User.objects.filter(username='leitor1').exists():
+u_leitor = User.objects.filter(username='leitor1').first()
+if not u_leitor:
     u = User.objects.create_user('leitor1', 'leitor@test.com', 'leitor123', first_name='Bruno', last_name='Leitor')
     u.groups.add(grupo_vis)
+    print('usuario leitor1 criado com senha leitor123')
+else:
+    u_leitor.set_password('leitor123')
+    u_leitor.save()
+    print('usuario leitor1 atualizado com senha leitor123')
 
 if not pessoa.objects.exists():
     pessoa.objects.create(nome='Ana Biblioteca', email='ana@biblio.com', funcao='Bibliotecario', celular='62999990001')
@@ -146,15 +167,12 @@ if not emprestimo.objects.exists():
     livro_dj = livro.objects.get(isbn='9781735467207')
     livro_py = livro.objects.get(isbn='9788575227534')
     livro_cc = livro.objects.get(isbn='9780132350884')
-
     e1 = emprestimo.objects.create(livro=livro_dj, leitor=leitor_b)
     print(f'emprestimo ativo: {e1}')
-
     e2 = emprestimo.objects.create(livro=livro_py, leitor=leitor_c)
     e2.data_devolucao_real = date.today()
     e2.save()
     print(f'emprestimo devolvido: {e2}')
-
     e3 = emprestimo.objects.create(livro=livro_cc, leitor=leitor_d)
     e3.data_saida = date.today() - timedelta(days=30)
     e3.data_devolucao_prevista = date.today() - timedelta(days=16)

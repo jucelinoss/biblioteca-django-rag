@@ -74,9 +74,9 @@ python manage.py migrate
 
 # Popular o banco de dados com dados de teste e usuários iniciais (idempotente)
 # No Windows (PowerShell):
-Get-Content seed.py | python manage.py shell
+Get-Content util/seed.py | python manage.py shell
 # No Linux/macOS:
-# python manage.py shell < seed.py
+# python manage.py shell < util/seed.py
 ```
 
 ### 3. Configuração de Inteligência Artificial (Embeddings & Chat RAG)
@@ -277,7 +277,11 @@ O script `seed.py` popula:
 
 Reprocessar seed a qualquer momento:
 ```bash
-python manage.py shell < seed.py   # idempotente, não duplica
+# No Windows (PowerShell):
+Get-Content util/seed.py | python manage.py shell
+
+# No Linux/macOS:
+python manage.py shell < util/seed.py
 ```
 
 ---
@@ -315,12 +319,14 @@ from core.models import livro, emprestimo, pessoa
 biblioteca_mvp/
 ├── manage.py
 ├── requirements.txt
-├── seed.py                              # dados iniciais (idempotente)
 ├── db.sqlite3                           # gerado pelo migrate
 ├── .env                                 # GROQ_API_KEY (gitignored)
 ├── .gitignore
 ├── README.md                            # este arquivo
 ├── CHANGELOG.md
+│
+├── util/                                # utilitários
+│   └── seed.py                          # dados de teste iniciais (idempotente)
 │
 ├── biblioteca_mvp/                      # projeto Django
 │   ├── settings.py                      # carrega .env, INSTALLED_APPS, config

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,8 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -46,14 +48,17 @@
             background: radial-gradient(circle at top right, #1e1b4b, #090514 60%);
             color: #d1d5db;
         }
+
         html.dark .glassmorphism {
             background: rgba(15, 12, 30, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
+
         html.dark .glass-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
+
         html.dark .glass-card:hover {
             background: rgba(255, 255, 255, 0.04);
             border-color: rgba(99, 102, 241, 0.2);
@@ -65,16 +70,19 @@
             background: radial-gradient(circle at top right, #e0e7ff, #f8fafc 60%);
             color: #1f2937;
         }
+
         html:not(.dark) .glassmorphism {
             background: rgba(255, 255, 255, 0.75);
             border: 1px solid rgba(0, 0, 0, 0.08);
             box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06);
         }
+
         html:not(.dark) .glass-card {
             background: rgba(255, 255, 255, 0.5);
             border: 1px solid rgba(0, 0, 0, 0.06);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         }
+
         html:not(.dark) .glass-card:hover {
             background: rgba(255, 255, 255, 0.7);
             border-color: rgba(79, 70, 229, 0.3);
@@ -85,14 +93,17 @@
             min-height: 100vh;
             transition: background 0.3s ease, color 0.3s ease;
         }
+
         .glassmorphism {
             backdrop-filter: blur(16px);
             transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
+
         .glass-card {
             backdrop-filter: blur(8px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .glass-card:hover {
             transform: translateY(-2px);
         }
@@ -100,28 +111,37 @@
         ::-webkit-scrollbar {
             width: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: rgba(0, 0, 0, 0.1);
         }
+
         ::-webkit-scrollbar-thumb {
             background: rgba(99, 102, 241, 0.3);
             border-radius: 3px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(99, 102, 241, 0.5);
         }
     </style>
 </head>
+
 <body class="text-gray-800 dark:text-gray-200 antialiased font-sans flex flex-col justify-between">
 
     <!-- Theme Toggle Floating Button (Login Page) -->
     <div class="fixed top-6 right-6 z-50">
-        <button onclick="toggleTheme()" class="p-3 rounded-2xl bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 transition-all flex items-center justify-center shadow-lg backdrop-blur-md" title="Alternar Tema">
+        <button onclick="toggleTheme()"
+            class="p-3 rounded-2xl bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 transition-all flex items-center justify-center shadow-lg backdrop-blur-md"
+            title="Alternar Tema">
             <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z">
+                </path>
             </svg>
             <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
             </svg>
         </button>
     </div>
@@ -130,14 +150,21 @@
     <div id="login-container" class="flex-grow flex items-center justify-center px-4 py-12 transition-all duration-500">
         <div class="glassmorphism w-full max-w-md p-8 rounded-3xl shadow-2xl relative overflow-hidden">
             <!-- Background glows -->
-            <div class="absolute -top-20 -left-20 w-48 h-48 bg-purple-600 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
-            <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-blue-600 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
-            
+            <div
+                class="absolute -top-20 -left-20 w-48 h-48 bg-purple-600 rounded-full filter blur-3xl opacity-20 animate-pulse">
+            </div>
+            <div
+                class="absolute -bottom-20 -right-20 w-48 h-48 bg-blue-600 rounded-full filter blur-3xl opacity-20 animate-pulse">
+            </div>
+
             <div class="relative z-10">
                 <div class="text-center mb-8">
-                    <div class="inline-flex p-3 rounded-2xl bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 mb-3 border border-indigo-500/20">
+                    <div
+                        class="inline-flex p-3 rounded-2xl bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 mb-3 border border-indigo-500/20">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
                         </svg>
                     </div>
                     <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Biblioteca RAG</h2>
@@ -146,26 +173,33 @@
 
                 <form id="login-form" class="space-y-5">
                     <div>
-                        <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Usuário</label>
-                        <input type="text" id="username" required 
+                        <label for="username"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Usuário</label>
+                        <input type="text" id="username" required
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-2xl px-4 py-3 text-gray-950 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                             placeholder="admin">
                     </div>
                     <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Senha</label>
-                        <input type="password" id="password" required 
+                        <label for="password"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Senha</label>
+                        <input type="password" id="password" required
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-2xl px-4 py-3 text-gray-950 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                             placeholder="••••••••">
                     </div>
-                    <div id="login-error" class="hidden p-4 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-2xl">
+                    <div id="login-error"
+                        class="hidden p-4 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-2xl">
                         Usuário ou senha incorretos.
                     </div>
                     <button type="submit" id="btn-login"
                         class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-3.5 px-4 rounded-2xl shadow-lg shadow-indigo-500/20 active:scale-[0.98] transition-all flex items-center justify-center">
                         <span id="login-btn-text">Entrar</span>
-                        <svg id="login-loading" class="hidden animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        <svg id="login-loading" class="hidden animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
                         </svg>
                     </button>
                 </form>
@@ -176,32 +210,45 @@
     <!-- MAIN APP WRAPPER (HIDDEN BEFORE LOGIN) -->
     <div id="app-container" class="hidden min-h-screen flex flex-col">
         <!-- Header -->
-        <header class="glassmorphism sticky top-0 z-50 px-6 py-4 border-b border-gray-200 dark:border-white/5 shadow-lg">
+        <header
+            class="glassmorphism sticky top-0 z-50 px-6 py-4 border-b border-gray-200 dark:border-white/5 shadow-lg">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <div class="p-2 rounded-xl bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/15">
+                    <div
+                        class="p-2 rounded-xl bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/15">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
                         </svg>
                     </div>
-                    <span class="text-xl font-bold text-gray-900 dark:text-white tracking-wide">Biblioteca <span class="bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">RAG API</span></span>
+                    <span class="text-xl font-bold text-gray-900 dark:text-white tracking-wide">Biblioteca <span
+                            class="bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">RAG</span></span>
                 </div>
-                
+
                 <div class="flex items-center space-x-5">
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Usuário: <strong id="logged-user" class="text-gray-800 dark:text-gray-200">admin</strong></span>
-                    
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Usuário: <strong id="logged-user"
+                            class="text-gray-800 dark:text-gray-200">admin</strong></span>
+
                     <!-- Configurações (Abre Modal de Tema/Preferências) -->
-                    <button onclick="openFormModal('config')" class="p-2.5 rounded-xl bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 transition-all flex items-center justify-center shadow-sm" title="Configurações e Tema">
-                        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <button onclick="openFormModal('config')"
+                        class="p-2.5 rounded-xl bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-500 hover:text-indigo-500 transition-all flex items-center justify-center shadow-sm"
+                        title="Configurações e Tema">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </button>
-                    
-                    <a href="/api/v1/docs/" target="_blank" class="text-xs bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold px-3 py-1.5 rounded-xl border border-emerald-500/20 transition-all">
+
+                    <a href="/api/v1/docs/" target="_blank"
+                        class="text-xs bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-semibold px-3 py-1.5 rounded-xl border border-emerald-500/20 transition-all">
                         Documentação Swagger
                     </a>
-                    <button id="btn-logout" class="text-sm bg-white/5 hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded-xl transition-all border border-gray-300 dark:border-white/5">
+                    <button id="btn-logout"
+                        class="text-sm bg-white/5 hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded-xl transition-all border border-gray-300 dark:border-white/5">
                         Sair
                     </button>
                 </div>
@@ -211,16 +258,20 @@
         <!-- Navigation bar -->
         <nav class="bg-indigo-50/40 dark:bg-black/35 py-3 border-b border-gray-200 dark:border-white/5">
             <div class="max-w-7xl mx-auto px-6 flex space-x-2">
-                <button onclick="switchTab('ia')" id="tab-ia" class="tab-btn active px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-white bg-indigo-600 dark:bg-indigo-600/80 border border-indigo-600/20 dark:border-indigo-500/30">
+                <button onclick="switchTab('ia')" id="tab-ia"
+                    class="tab-btn active px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-white bg-indigo-600 dark:bg-indigo-600/80 border border-indigo-600/20 dark:border-indigo-500/30">
                     🤖 Inteligência Artificial (Chat & Recomendações)
                 </button>
-                <button onclick="switchTab('livros')" id="tab-livros" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-indigo-50/50 dark:hover:bg-white/5">
+                <button onclick="switchTab('livros')" id="tab-livros"
+                    class="tab-btn px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-indigo-50/50 dark:hover:bg-white/5">
                     📚 Gerenciar Livros
                 </button>
-                <button onclick="switchTab('pessoas')" id="tab-pessoas" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-indigo-50/50 dark:hover:bg-white/5">
+                <button onclick="switchTab('pessoas')" id="tab-pessoas"
+                    class="tab-btn px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-indigo-50/50 dark:hover:bg-white/5">
                     👥 Gerenciar Leitores
                 </button>
-                <button onclick="switchTab('emprestimos')" id="tab-emprestimos" class="tab-btn px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-indigo-50/50 dark:hover:bg-white/5">
+                <button onclick="switchTab('emprestimos')" id="tab-emprestimos"
+                    class="tab-btn px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white hover:bg-indigo-50/50 dark:hover:bg-white/5">
                     🤝 Empréstimos
                 </button>
             </div>
@@ -228,52 +279,68 @@
 
         <!-- Main Body -->
         <main class="flex-grow max-w-7xl w-full mx-auto px-6 py-8">
-            
+
             <!-- Global Toast/Alert Message -->
-            <div id="api-toast" class="hidden mb-6 p-4 rounded-2xl flex items-center justify-between border transition-all duration-300">
+            <div id="api-toast"
+                class="hidden mb-6 p-4 rounded-2xl flex items-center justify-between border transition-all duration-300">
                 <span id="toast-text" class="text-sm font-medium"></span>
-                <button onclick="document.getElementById('api-toast').classList.add('hidden')" class="text-white/50 hover:text-white">&times;</button>
+                <button onclick="document.getElementById('api-toast').classList.add('hidden')"
+                    class="text-white/50 hover:text-white">&times;</button>
             </div>
 
             <!-- TABS SECTION -->
-            
+
             <!-- 1. IA TAB -->
             <div id="view-ia" class="tab-view space-y-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    
+
                     <!-- Chat RAG Box -->
-                    <div class="glassmorphism rounded-3xl p-6 flex flex-col h-[600px] border border-gray-200 dark:border-white/5">
-                        <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-white/5 mb-4">
+                    <div
+                        class="glassmorphism rounded-3xl p-6 flex flex-col h-[600px] border border-gray-200 dark:border-white/5">
+                        <div
+                            class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-white/5 mb-4">
                             <div class="flex items-center space-x-3">
                                 <div class="p-2 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+                                        </path>
                                     </svg>
                                 </div>
                                 <div>
-                                    <h3 class="font-bold text-gray-900 dark:text-white text-lg">Assistente RAG do Acervo</h3>
-                                    <p class="text-xs text-gray-505 dark:text-gray-400">Responde consultas estritamente baseadas nas obras</p>
+                                    <h3 class="font-bold text-gray-900 dark:text-white text-lg">Assistente RAG do Acervo
+                                    </h3>
+                                    <p class="text-xs text-gray-505 dark:text-gray-400">Responde consultas estritamente
+                                        baseadas nas obras</p>
                                 </div>
                             </div>
-                            <span class="text-xs px-2 py-1 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/10">Llama 3.3 RAG</span>
+                            <span
+                                class="text-xs px-2 py-1 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/10">Llama
+                                3.3 RAG</span>
                         </div>
 
                         <!-- Chat Messages Screen -->
                         <div id="chat-messages" class="flex-grow overflow-y-auto space-y-4 pr-2 mb-4">
                             <div class="flex space-x-3 max-w-[85%]">
-                                <div class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-600 dark:text-purple-300 flex items-center justify-center font-bold text-xs shrink-0 border border-purple-500/20">AI</div>
-                                <div class="bg-indigo-50/50 dark:bg-white/5 border border-indigo-100/50 dark:border-white/5 rounded-2xl px-4 py-3 text-sm text-gray-800 dark:text-gray-300">
-                                    Olá! Eu sou o Assistente do Acervo. Pergunte-me qualquer coisa sobre os livros cadastrados em nossa biblioteca!
+                                <div
+                                    class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-600 dark:text-purple-300 flex items-center justify-center font-bold text-xs shrink-0 border border-purple-500/20">
+                                    AI</div>
+                                <div
+                                    class="bg-indigo-50/50 dark:bg-white/5 border border-indigo-100/50 dark:border-white/5 rounded-2xl px-4 py-3 text-sm text-gray-800 dark:text-gray-300">
+                                    Olá! Eu sou o Assistente do Acervo. Pergunte-me qualquer coisa sobre os livros
+                                    cadastrados em nossa biblioteca!
                                 </div>
                             </div>
                         </div>
 
                         <!-- Quick suggestion prompts -->
                         <div class="flex flex-wrap gap-2 mb-3">
-                            <button onclick="fillChatPrompt('Quais monografias ou teses temos no acervo?')" class="text-xs bg-indigo-50/50 hover:bg-indigo-100 dark:bg-white/5 dark:hover:bg-white/10 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white px-3 py-1.5 rounded-xl border border-indigo-100 dark:border-white/5 transition-all">
+                            <button onclick="fillChatPrompt('Quais monografias ou teses temos no acervo?')"
+                                class="text-xs bg-indigo-50/50 hover:bg-indigo-100 dark:bg-white/5 dark:hover:bg-white/10 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white px-3 py-1.5 rounded-xl border border-indigo-100 dark:border-white/5 transition-all">
                                 💡 Quais monografias/teses temos?
                             </button>
-                            <button onclick="fillChatPrompt('Existe algum livro de desenvolvimento ou programação?')" class="text-xs bg-indigo-50/50 hover:bg-indigo-100 dark:bg-white/5 dark:hover:bg-white/10 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white px-3 py-1.5 rounded-xl border border-indigo-100 dark:border-white/5 transition-all">
+                            <button onclick="fillChatPrompt('Existe algum livro de desenvolvimento ou programação?')"
+                                class="text-xs bg-indigo-50/50 hover:bg-indigo-100 dark:bg-white/5 dark:hover:bg-white/10 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white px-3 py-1.5 rounded-xl border border-indigo-100 dark:border-white/5 transition-all">
                                 💡 Livros de programação?
                             </button>
                         </div>
@@ -286,24 +353,31 @@
                             <button type="submit" id="chat-send"
                                 class="p-3.5 rounded-2xl bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-500/10 active:scale-95 transition-all">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                                 </svg>
                             </button>
                         </form>
                     </div>
 
                     <!-- Cosine Recommendation Box -->
-                    <div class="glassmorphism rounded-3xl p-6 flex flex-col h-[600px] border border-gray-200 dark:border-white/5">
-                        <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-white/5 mb-6">
+                    <div
+                        class="glassmorphism rounded-3xl p-6 flex flex-col h-[600px] border border-gray-200 dark:border-white/5">
+                        <div
+                            class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-white/5 mb-6">
                             <div class="flex items-center space-x-3">
                                 <div class="p-2 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                                        </path>
                                     </svg>
                                 </div>
                                 <div>
-                                    <h3 class="font-bold text-gray-900 dark:text-white text-lg">Recomendação de Obras Similares</h3>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">Encontre livros próximos usando embeddings locais MiniLM</p>
+                                    <h3 class="font-bold text-gray-900 dark:text-white text-lg">Recomendação de Obras
+                                        Similares</h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Encontre livros próximos usando
+                                        embeddings locais MiniLM</p>
                                 </div>
                             </div>
                         </div>
@@ -311,18 +385,22 @@
                         <!-- Form para recomendação -->
                         <form id="recommend-form" class="grid grid-cols-3 gap-4 mb-6">
                             <div class="col-span-2">
-                                <label for="rec-book" class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Livro Base</label>
+                                <label for="rec-book"
+                                    class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Livro
+                                    Base</label>
                                 <select id="rec-book" required
                                     class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-2xl px-4 py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
                                     <!-- Options filled dynamically -->
                                 </select>
                             </div>
                             <div>
-                                <label for="rec-qty" class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Qtd</label>
+                                <label for="rec-qty"
+                                    class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Qtd</label>
                                 <input type="number" id="rec-qty" min="1" max="10" value="5" required
                                     class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-2xl px-4 py-3 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
                             </div>
-                            <button type="submit" class="col-span-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3 px-4 rounded-2xl shadow-lg transition-all active:scale-[0.99] flex items-center justify-center">
+                            <button type="submit"
+                                class="col-span-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-3 px-4 rounded-2xl shadow-lg transition-all active:scale-[0.99] flex items-center justify-center">
                                 Encontrar Livros Semelhantes
                             </button>
                         </form>
@@ -330,10 +408,14 @@
                         <!-- Resultados -->
                         <div class="flex-grow overflow-y-auto space-y-3 pr-1" id="rec-results">
                             <div class="h-full flex flex-col items-center justify-center text-center text-gray-500 p-8">
-                                <svg class="w-12 h-12 mb-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path>
+                                <svg class="w-12 h-12 mb-3 text-gray-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z">
+                                    </path>
                                 </svg>
-                                <p class="text-sm">Selecione uma obra acima para ver as recomendações baseadas no seu vetor.</p>
+                                <p class="text-sm">Selecione uma obra acima para ver as recomendações baseadas no seu
+                                    vetor.</p>
                             </div>
                         </div>
                     </div>
@@ -345,24 +427,28 @@
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Acervo de Obras</h2>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Adicione, visualize ou edite livros na base de dados.</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Adicione, visualize ou edite livros na base
+                            de dados.</p>
                     </div>
                     <div class="flex space-x-3">
-                        <input type="text" id="search-livros" oninput="loadLivros()"
+                        <input type="text" id="search-livros" oninput="livrosPage = 1; loadLivros()"
                             class="bg-white/50 dark:bg-black/35 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                             placeholder="Buscar por título ou autor...">
-                        <button onclick="openFormModal('livro')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-xl text-sm transition-all shadow-md active:scale-95 flex items-center">
+                        <button onclick="openFormModal('livro')"
+                            class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-xl text-sm transition-all shadow-md active:scale-95 flex items-center">
                             <span class="mr-1.5">+</span> Nova Obra
                         </button>
                     </div>
                 </div>
 
                 <!-- Table Wrapper -->
-                <div class="glassmorphism rounded-3xl overflow-hidden border border-gray-200 dark:border-white/5 shadow-xl">
+                <div
+                    class="glassmorphism rounded-3xl overflow-hidden border border-gray-200 dark:border-white/5 shadow-xl">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
-                                <tr class="bg-indigo-50/50 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider border-b border-gray-200 dark:border-white/5">
+                                <tr
+                                    class="bg-indigo-50/50 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider border-b border-gray-200 dark:border-white/5">
                                     <th class="px-6 py-4">Título</th>
                                     <th class="px-6 py-4">Autor</th>
                                     <th class="px-6 py-4">Tipo</th>
@@ -372,10 +458,41 @@
                                     <th class="px-6 py-4 text-right">Ações</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-livros-body" class="divide-y divide-gray-200 dark:divide-white/5 text-sm text-gray-800 dark:text-gray-300">
+                            <tbody id="table-livros-body"
+                                class="divide-y divide-gray-200 dark:divide-white/5 text-sm text-gray-800 dark:text-gray-300">
                                 <!-- Dynamic records -->
                             </tbody>
                         </table>
+                    </div>
+                    <!-- Paginação de Livros -->
+                    <div
+                        class="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-white/5 bg-indigo-50/20 dark:bg-black/20 text-xs">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-gray-500 dark:text-gray-400">
+                                Total: <strong id="livros-count" class="text-gray-800 dark:text-white">0</strong> obras
+                            </span>
+                            <div class="flex items-center space-x-1.5">
+                                <span class="text-gray-500 dark:text-gray-400">Exibir:</span>
+                                <select id="livros-page-size" onchange="livrosPage = 1; loadLivros()"
+                                    class="bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 rounded px-1.5 py-1 focus:outline-none text-[11px] font-medium">
+                                    <option value="10" class="bg-white dark:bg-slate-900">10</option>
+                                    <option value="20" class="bg-white dark:bg-slate-900">20</option>
+                                    <option value="30" class="bg-white dark:bg-slate-900">30</option>
+                                    <option value="50" class="bg-white dark:bg-slate-900">50</option>
+                                    <option value="100" class="bg-white dark:bg-slate-900">100</option>
+                                    <option value="1000" class="bg-white dark:bg-slate-900">Tudo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button id="btn-livros-prev" onclick="changeLivrosPage(-1)"
+                                class="px-3 py-1.5 rounded-lg bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
+                            <span class="text-gray-500 dark:text-gray-400">Página <strong id="livros-current-page"
+                                    class="text-gray-800 dark:text-white">1</strong> de <strong id="livros-total-pages"
+                                    class="text-gray-800 dark:text-white">1</strong></span>
+                            <button id="btn-livros-next" onclick="changeLivrosPage(1)"
+                                class="px-3 py-1.5 rounded-lg bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed">Próximo</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -385,19 +502,23 @@
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Leitores & Bibliotecários</h2>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Gerencie o cadastro de usuários e administradores.</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Gerencie o cadastro de usuários e
+                            administradores.</p>
                     </div>
-                    <button onclick="openFormModal('pessoa')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-xl text-sm transition-all shadow-md active:scale-95 flex items-center">
+                    <button onclick="openFormModal('pessoa')"
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-xl text-sm transition-all shadow-md active:scale-95 flex items-center">
                         <span class="mr-1.5">+</span> Novo Usuário
                     </button>
                 </div>
 
                 <!-- Table Wrapper -->
-                <div class="glassmorphism rounded-3xl overflow-hidden border border-gray-200 dark:border-white/5 shadow-xl">
+                <div
+                    class="glassmorphism rounded-3xl overflow-hidden border border-gray-200 dark:border-white/5 shadow-xl">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
-                                <tr class="bg-indigo-50/50 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider border-b border-gray-200 dark:border-white/5">
+                                <tr
+                                    class="bg-indigo-50/50 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider border-b border-gray-200 dark:border-white/5">
                                     <th class="px-6 py-4">Nome</th>
                                     <th class="px-6 py-4">Email</th>
                                     <th class="px-6 py-4">Celular</th>
@@ -407,10 +528,42 @@
                                     <th class="px-6 py-4 text-right">Ações</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-pessoas-body" class="divide-y divide-gray-200 dark:divide-white/5 text-sm text-gray-800 dark:text-gray-300">
+                            <tbody id="table-pessoas-body"
+                                class="divide-y divide-gray-200 dark:divide-white/5 text-sm text-gray-800 dark:text-gray-300">
                                 <!-- Dynamic records -->
                             </tbody>
                         </table>
+                    </div>
+                    <!-- Paginação de Pessoas -->
+                    <div
+                        class="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-white/5 bg-indigo-50/20 dark:bg-black/20 text-xs">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-gray-500 dark:text-gray-400">
+                                Total: <strong id="pessoas-count" class="text-gray-800 dark:text-white">0</strong>
+                                cadastros
+                            </span>
+                            <div class="flex items-center space-x-1.5">
+                                <span class="text-gray-500 dark:text-gray-400">Exibir:</span>
+                                <select id="pessoas-page-size" onchange="pessoasPage = 1; loadPessoas()"
+                                    class="bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 rounded px-1.5 py-1 focus:outline-none text-[11px] font-medium">
+                                    <option value="10" class="bg-white dark:bg-slate-900">10</option>
+                                    <option value="20" class="bg-white dark:bg-slate-900">20</option>
+                                    <option value="30" class="bg-white dark:bg-slate-900">30</option>
+                                    <option value="50" class="bg-white dark:bg-slate-900">50</option>
+                                    <option value="100" class="bg-white dark:bg-slate-900">100</option>
+                                    <option value="1000" class="bg-white dark:bg-slate-900">Tudo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button id="btn-pessoas-prev" onclick="changePessoasPage(-1)"
+                                class="px-3 py-1.5 rounded-lg bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
+                            <span class="text-gray-500 dark:text-gray-400">Página <strong id="pessoas-current-page"
+                                    class="text-gray-800 dark:text-white">1</strong> de <strong id="pessoas-total-pages"
+                                    class="text-gray-800 dark:text-white">1</strong></span>
+                            <button id="btn-pessoas-next" onclick="changePessoasPage(1)"
+                                class="px-3 py-1.5 rounded-lg bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed">Próximo</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -420,19 +573,23 @@
                 <div class="flex items-center justify-between mb-4">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Gestão de Empréstimos</h2>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Controle a retirada e devolução de obras.</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Controle a retirada e devolução de obras.
+                        </p>
                     </div>
-                    <button onclick="openFormModal('emprestimo')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-xl text-sm transition-all shadow-md active:scale-95 flex items-center">
+                    <button onclick="openFormModal('emprestimo')"
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-xl text-sm transition-all shadow-md active:scale-95 flex items-center">
                         <span class="mr-1.5">+</span> Novo Empréstimo
                     </button>
                 </div>
 
                 <!-- Table Wrapper -->
-                <div class="glassmorphism rounded-3xl overflow-hidden border border-gray-200 dark:border-white/5 shadow-xl">
+                <div
+                    class="glassmorphism rounded-3xl overflow-hidden border border-gray-200 dark:border-white/5 shadow-xl">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
-                                <tr class="bg-indigo-50/50 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider border-b border-gray-200 dark:border-white/5">
+                                <tr
+                                    class="bg-indigo-50/50 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider border-b border-gray-200 dark:border-white/5">
                                     <th class="px-6 py-4">Obra</th>
                                     <th class="px-6 py-4">Leitor</th>
                                     <th class="px-6 py-4">Saída</th>
@@ -442,10 +599,42 @@
                                     <th class="px-6 py-4 text-right">Ações</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-emprestimos-body" class="divide-y divide-gray-200 dark:divide-white/5 text-sm text-gray-800 dark:text-gray-300">
+                            <tbody id="table-emprestimos-body"
+                                class="divide-y divide-gray-200 dark:divide-white/5 text-sm text-gray-800 dark:text-gray-300">
                                 <!-- Dynamic records -->
                             </tbody>
                         </table>
+                    </div>
+                    <!-- Paginação de Empréstimos -->
+                    <div
+                        class="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-white/5 bg-indigo-50/20 dark:bg-black/20 text-xs">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-gray-500 dark:text-gray-400">
+                                Total: <strong id="emprestimos-count" class="text-gray-800 dark:text-white">0</strong>
+                                registros
+                            </span>
+                            <div class="flex items-center space-x-1.5">
+                                <span class="text-gray-500 dark:text-gray-400">Exibir:</span>
+                                <select id="emprestimos-page-size" onchange="emprestimosPage = 1; loadEmprestimos()"
+                                    class="bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 rounded px-1.5 py-1 focus:outline-none text-[11px] font-medium">
+                                    <option value="10" class="bg-white dark:bg-slate-900">10</option>
+                                    <option value="20" class="bg-white dark:bg-slate-900">20</option>
+                                    <option value="30" class="bg-white dark:bg-slate-900">30</option>
+                                    <option value="50" class="bg-white dark:bg-slate-900">50</option>
+                                    <option value="100" class="bg-white dark:bg-slate-900">100</option>
+                                    <option value="1000" class="bg-white dark:bg-slate-900">Tudo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button id="btn-emprestimos-prev" onclick="changeEmprestimosPage(-1)"
+                                class="px-3 py-1.5 rounded-lg bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
+                            <span class="text-gray-500 dark:text-gray-400">Página <strong id="emprestimos-current-page"
+                                    class="text-gray-800 dark:text-white">1</strong> de <strong
+                                    id="emprestimos-total-pages" class="text-gray-800 dark:text-white">1</strong></span>
+                            <button id="btn-emprestimos-next" onclick="changeEmprestimosPage(1)"
+                                class="px-3 py-1.5 rounded-lg bg-white/40 dark:bg-white/5 border border-gray-300 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-white/10 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed">Próximo</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -455,38 +644,55 @@
         <!-- Footer -->
         <footer class="bg-black/40 text-center py-6 text-xs text-gray-500 border-t border-white/5">
             <div class="max-w-7xl mx-auto px-6">
-                <p>Biblioteca RAG API - Desenvolvido para o Trabalho Final T2 de Construção de APIs para IA (UFG)</p>
+                <p>Biblioteca RAG</p>
             </div>
+        </footer>
+    </div>
     <!-- D. CONFIG FORM MODAL -->
-    <div id="modal-config" class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+    <div id="modal-config"
+        class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
         <div class="glassmorphism w-full max-w-md rounded-3xl p-6 shadow-2xl relative">
             <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Configurações do Painel</h3>
-            
+
             <div class="space-y-6">
                 <!-- Theme Option Config -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Tema da Interface</label>
+                    <label
+                        class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Tema
+                        da Interface</label>
                     <div class="grid grid-cols-3 gap-3">
                         <!-- Claro -->
-                        <button id="theme-opt-light" onclick="applyTheme('light')" class="theme-option p-4 rounded-2xl border text-center flex flex-col items-center justify-center transition-all bg-white/20 hover:bg-white/40 dark:bg-black/20 dark:hover:bg-black/40 border-gray-200 dark:border-white/10 text-gray-800 dark:text-gray-200">
-                            <svg class="w-6 h-6 mb-2 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+                        <button id="theme-opt-light" onclick="applyTheme('light')"
+                            class="theme-option p-4 rounded-2xl border text-center flex flex-col items-center justify-center transition-all bg-white/20 hover:bg-white/40 dark:bg-black/20 dark:hover:bg-black/40 border-gray-200 dark:border-white/10 text-gray-800 dark:text-gray-200">
+                            <svg class="w-6 h-6 mb-2 text-amber-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z">
+                                </path>
                             </svg>
                             <span class="text-xs font-semibold">Claro</span>
                         </button>
-                        
+
                         <!-- Escuro -->
-                        <button id="theme-opt-dark" onclick="applyTheme('dark')" class="theme-option p-4 rounded-2xl border text-center flex flex-col items-center justify-center transition-all bg-white/20 hover:bg-white/40 dark:bg-black/20 dark:hover:bg-black/40 border-gray-200 dark:border-white/10 text-gray-800 dark:text-gray-200">
-                            <svg class="w-6 h-6 mb-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        <button id="theme-opt-dark" onclick="applyTheme('dark')"
+                            class="theme-option p-4 rounded-2xl border text-center flex flex-col items-center justify-center transition-all bg-white/20 hover:bg-white/40 dark:bg-black/20 dark:hover:bg-black/40 border-gray-200 dark:border-white/10 text-gray-800 dark:text-gray-200">
+                            <svg class="w-6 h-6 mb-2 text-indigo-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                                </path>
                             </svg>
                             <span class="text-xs font-semibold">Escuro</span>
                         </button>
-                        
+
                         <!-- Sistema -->
-                        <button id="theme-opt-system" onclick="applyTheme('system')" class="theme-option p-4 rounded-2xl border text-center flex flex-col items-center justify-center transition-all bg-white/20 hover:bg-white/40 dark:bg-black/20 dark:hover:bg-black/40 border-gray-200 dark:border-white/10 text-gray-800 dark:text-gray-200">
-                            <svg class="w-6 h-6 mb-2 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        <button id="theme-opt-system" onclick="applyTheme('system')"
+                            class="theme-option p-4 rounded-2xl border text-center flex flex-col items-center justify-center transition-all bg-white/20 hover:bg-white/40 dark:bg-black/20 dark:hover:bg-black/40 border-gray-200 dark:border-white/10 text-gray-800 dark:text-gray-200">
+                            <svg class="w-6 h-6 mb-2 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
                             </svg>
                             <span class="text-xs font-semibold">Sistema</span>
                         </button>
@@ -495,8 +701,11 @@
 
                 <!-- API Server Info -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Informações da API</label>
-                    <div class="p-4 rounded-2xl bg-white/20 dark:bg-black/20 border border-gray-200 dark:border-white/10 text-xs space-y-2 text-gray-600 dark:text-gray-400 font-mono">
+                    <label
+                        class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Informações
+                        da API</label>
+                    <div
+                        class="p-4 rounded-2xl bg-white/20 dark:bg-black/20 border border-gray-200 dark:border-white/10 text-xs space-y-2 text-gray-600 dark:text-gray-400 font-mono">
                         <div class="flex justify-between">
                             <span>Versão:</span>
                             <span class="text-gray-900 dark:text-white font-semibold">v1.0.0</span>
@@ -507,37 +716,44 @@
                         </div>
                         <div class="flex justify-between">
                             <span>Documentação:</span>
-                            <a href="/api/v1/docs/" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline">Swagger UI</a>
+                            <a href="/api/v1/docs/" target="_blank"
+                                class="text-indigo-600 dark:text-indigo-400 hover:underline">Swagger UI</a>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="flex justify-end pt-6 mt-6 border-t border-gray-200 dark:border-white/5">
-                <button type="button" onclick="closeModal('config')" class="bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-5 py-2.5 rounded-xl text-sm transition-all border border-gray-300 dark:border-white/5">Fechar</button>
+                <button type="button" onclick="closeModal('config')"
+                    class="bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-5 py-2.5 rounded-xl text-sm transition-all border border-gray-300 dark:border-white/5">Fechar</button>
             </div>
         </div>
     </div>
 
     <!-- A. LIVRO FORM MODAL -->
-    <div id="modal-livro" class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+    <div id="modal-livro"
+        class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
         <div class="glassmorphism w-full max-w-lg rounded-3xl p-6 shadow-2xl relative">
             <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6" id="modal-livro-title">Adicionar Obra</h3>
             <form id="form-livro" class="space-y-4">
                 <input type="hidden" id="livro-id">
                 <div>
-                    <label for="livro-titulo" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Título</label>
+                    <label for="livro-titulo"
+                        class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Título</label>
                     <input type="text" id="livro-titulo" required
                         class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                 </div>
                 <div>
-                    <label for="livro-autor" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Autor</label>
+                    <label for="livro-autor"
+                        class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Autor</label>
                     <input type="text" id="livro-autor" required
                         class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label for="livro-tipo" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Tipo de Obra</label>
+                        <label for="livro-tipo"
+                            class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Tipo
+                            de Obra</label>
                         <select id="livro-tipo" required
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                             <option value="BIBLIOGRAFIA">Bibliografia</option>
@@ -546,7 +762,8 @@
                         </select>
                     </div>
                     <div>
-                        <label for="livro-isbn" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">ISBN</label>
+                        <label for="livro-isbn"
+                            class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">ISBN</label>
                         <input type="text" id="livro-isbn"
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                             placeholder="Obrigatório p/ Bibliografia">
@@ -554,55 +771,68 @@
                 </div>
                 <div class="grid grid-cols-3 gap-4">
                     <div>
-                        <label for="livro-ano" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Ano</label>
+                        <label for="livro-ano"
+                            class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Ano</label>
                         <input type="number" id="livro-ano" min="1500" max="2100"
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                     </div>
                     <div>
-                        <label for="livro-total" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Total</label>
+                        <label for="livro-total"
+                            class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Total</label>
                         <input type="number" id="livro-total" min="1" required
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                     </div>
                     <div>
-                        <label for="livro-disp" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Disponíveis</label>
+                        <label for="livro-disp"
+                            class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Disponíveis</label>
                         <input type="number" id="livro-disp" min="0" required
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                     </div>
                 </div>
-                <div id="error-livro-modal" class="hidden p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl"></div>
+                <div id="error-livro-modal"
+                    class="hidden p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl"></div>
                 <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-white/5">
-                    <button type="button" onclick="closeModal('livro')" class="bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded-xl text-sm transition-all border border-gray-300 dark:border-white/5">Cancelar</button>
-                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2 rounded-xl text-sm transition-all shadow-md">Salvar</button>
+                    <button type="button" onclick="closeModal('livro')"
+                        class="bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded-xl text-sm transition-all border border-gray-300 dark:border-white/5">Cancelar</button>
+                    <button type="submit"
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2 rounded-xl text-sm transition-all shadow-md">Salvar</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- B. PESSOA FORM MODAL -->
-    <div id="modal-pessoa" class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+    <div id="modal-pessoa"
+        class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
         <div class="glassmorphism w-full max-w-lg rounded-3xl p-6 shadow-2xl relative">
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6" id="modal-pessoa-title">Adicionar Usuário</h3>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6" id="modal-pessoa-title">Adicionar Usuário
+            </h3>
             <form id="form-pessoa" class="space-y-4">
                 <input type="hidden" id="pessoa-id">
                 <div>
-                    <label for="pessoa-nome" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Nome Completo</label>
+                    <label for="pessoa-nome"
+                        class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Nome
+                        Completo</label>
                     <input type="text" id="pessoa-nome" required
                         class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                 </div>
                 <div>
-                    <label for="pessoa-email" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Email</label>
+                    <label for="pessoa-email"
+                        class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Email</label>
                     <input type="email" id="pessoa-email" required
                         class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label for="pessoa-celular" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Celular</label>
+                        <label for="pessoa-celular"
+                            class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Celular</label>
                         <input type="text" id="pessoa-celular"
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
                             placeholder="(62) 99999-9999">
                     </div>
                     <div>
-                        <label for="pessoa-funcao" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Função</label>
+                        <label for="pessoa-funcao"
+                            class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Função</label>
                         <select id="pessoa-funcao" required
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                             <option value="Leitor">Leitor</option>
@@ -612,48 +842,62 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label for="pessoa-nascimento" class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Data de Nascimento</label>
+                        <label for="pessoa-nascimento"
+                            class="block text-xs font-semibold text-gray-505 dark:text-gray-400 uppercase tracking-wider mb-1">Data
+                            de Nascimento</label>
                         <input type="date" id="pessoa-nascimento"
                             class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                     </div>
                     <div class="flex items-center pt-5 pl-4">
                         <input type="checkbox" id="pessoa-ativo" checked
                             class="w-5 h-5 bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded text-indigo-600 focus:ring-indigo-500 transition-all">
-                        <label for="pessoa-ativo" class="ml-2 text-sm text-gray-700 dark:text-gray-300 select-none">Cadastro Ativo</label>
+                        <label for="pessoa-ativo"
+                            class="ml-2 text-sm text-gray-700 dark:text-gray-300 select-none">Cadastro Ativo</label>
                     </div>
                 </div>
-                <div id="error-pessoa-modal" class="hidden p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl"></div>
+                <div id="error-pessoa-modal"
+                    class="hidden p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl"></div>
                 <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-white/5">
-                    <button type="button" onclick="closeModal('pessoa')" class="bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded-xl text-sm transition-all border border-gray-300 dark:border-white/5">Cancelar</button>
-                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2 rounded-xl text-sm transition-all shadow-md">Salvar</button>
+                    <button type="button" onclick="closeModal('pessoa')"
+                        class="bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded-xl text-sm transition-all border border-gray-300 dark:border-white/5">Cancelar</button>
+                    <button type="submit"
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2 rounded-xl text-sm transition-all shadow-md">Salvar</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- C. EMPRESTIMO FORM MODAL -->
-    <div id="modal-emprestimo" class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+    <div id="modal-emprestimo"
+        class="hidden fixed inset-0 z-50 overflow-y-auto flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
         <div class="glassmorphism w-full max-w-lg rounded-3xl p-6 shadow-2xl relative">
             <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Solicitar Empréstimo</h3>
             <form id="form-emprestimo" class="space-y-4">
                 <div>
-                    <label for="emp-book" class="block text-xs font-semibold text-gray-550 dark:text-gray-400 uppercase tracking-wider mb-1">Obra a Emprestar</label>
+                    <label for="emp-book"
+                        class="block text-xs font-semibold text-gray-550 dark:text-gray-400 uppercase tracking-wider mb-1">Obra
+                        a Emprestar</label>
                     <select id="emp-book" required
                         class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                         <!-- Filled dynamic -->
                     </select>
                 </div>
                 <div>
-                    <label for="emp-leitor" class="block text-xs font-semibold text-gray-555 dark:text-gray-400 uppercase tracking-wider mb-1">Leitor</label>
+                    <label for="emp-leitor"
+                        class="block text-xs font-semibold text-gray-555 dark:text-gray-400 uppercase tracking-wider mb-1">Leitor</label>
                     <select id="emp-leitor" required
                         class="w-full bg-white/50 dark:bg-black/40 border border-gray-300 dark:border-white/10 rounded-xl px-4 py-2.5 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
                         <!-- Filled dynamic -->
                     </select>
                 </div>
-                <div id="error-emprestimo-modal" class="hidden p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl"></div>
+                <div id="error-emprestimo-modal"
+                    class="hidden p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl"></div>
                 <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-white/5">
-                    <button type="button" onclick="closeModal('emprestimo')" class="bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded-xl text-sm transition-all border border-gray-300 dark:border-white/5">Cancelar</button>
-                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2 rounded-xl text-sm transition-all shadow-md">Confirmar Retirada</button>
+                    <button type="button" onclick="closeModal('emprestimo')"
+                        class="bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 font-medium px-4 py-2 rounded-xl text-sm transition-all border border-gray-300 dark:border-white/5">Cancelar</button>
+                    <button type="submit"
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2 rounded-xl text-sm transition-all shadow-md">Confirmar
+                        Retirada</button>
                 </div>
             </form>
         </div>
@@ -665,13 +909,13 @@
         function applyTheme(theme) {
             localStorage.setItem('theme', theme);
             const html = document.documentElement;
-            
+
             // Remove realce de todas as opções de tema
             document.querySelectorAll('.theme-option').forEach(opt => {
                 opt.classList.remove('border-indigo-600', 'bg-indigo-50/50', 'dark:bg-indigo-500/10', 'dark:border-indigo-500');
                 opt.classList.add('border-gray-200', 'dark:border-white/10');
             });
-            
+
             // Adiciona realce à opção de tema ativa
             const selectedOpt = document.getElementById(`theme-opt-${theme}`);
             if (selectedOpt) {
@@ -734,7 +978,7 @@
             e.preventDefault();
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
-            
+
             toggleLoginLoading(true);
             document.getElementById('login-error').classList.add('hidden');
 
@@ -752,7 +996,7 @@
                     localStorage.setItem('access_token', ACCESS_TOKEN);
                     localStorage.setItem('refresh_token', REFRESH_TOKEN);
                     localStorage.setItem('logged_username', username);
-                    
+
                     setupAppSession();
                 } else {
                     document.getElementById('login-error').classList.remove('hidden');
@@ -782,7 +1026,7 @@
             document.getElementById('login-container').classList.add('hidden');
             document.getElementById('app-container').classList.remove('hidden');
             document.getElementById('logged-user').textContent = localStorage.getItem('logged_username') || 'Bibliotecario';
-            
+
             // Inicia agendamento de refresh do token (a cada 50 minutos)
             scheduleTokenRefresh();
 
@@ -832,7 +1076,7 @@
         // Global Fetch Wrapper para injetar Token e tratar erros
         async function apiFetch(endpoint, options = {}) {
             if (!ACCESS_TOKEN) return null;
-            
+
             // Injeta headers
             const headers = {
                 'Authorization': `Bearer ${ACCESS_TOKEN}`,
@@ -867,7 +1111,7 @@
                 toast.classList.add("bg-red-500/10", "border-red-500/20", "text-red-400");
             }
             toast.classList.remove('hidden');
-            
+
             // Auto hide em 5s
             setTimeout(() => toast.classList.add('hidden'), 5000);
         }
@@ -881,7 +1125,7 @@
 
             const activeBtn = document.getElementById(`tab-${tabName}`);
             activeBtn.className = "tab-btn active px-4 py-2.5 rounded-xl text-sm font-medium transition-all text-white bg-indigo-600 dark:bg-indigo-600/80 border border-indigo-600/20 dark:border-indigo-500/30";
-            
+
             const activeView = document.getElementById(`view-${tabName}`);
             activeView.classList.remove('hidden');
 
@@ -896,15 +1140,18 @@
         // 1. ABA DE IA & RECOMENDAÇÕES
         // ==========================================
         let booksCache = [];
+        let livrosPage = 1;
+        let pessoasPage = 1;
+        let emprestimosPage = 1;
 
         async function loadIaControls() {
             // Carrega livros para dropdown de recomendação
             try {
-                const res = await apiFetch('/livros/');
+                const res = await apiFetch('/livros/?page_size=1000');
                 if (res.ok) {
                     const data = await res.json();
                     booksCache = data.results || data;
-                    
+
                     const select = document.getElementById('rec-book');
                     select.innerHTML = '';
                     booksCache.forEach(b => {
@@ -944,7 +1191,7 @@
                 if (res.ok) {
                     const data = await res.json();
                     container.innerHTML = '';
-                    
+
                     if (!data.recomendacoes || data.recomendacoes.length === 0) {
                         container.innerHTML = `<p class="text-sm text-gray-500 text-center py-8">Nenhuma obra similar cadastrada (com embedding).</p>`;
                         return;
@@ -1037,10 +1284,10 @@
 
                 if (res.ok) {
                     const data = await res.json();
-                    
+
                     const botMsgDiv = document.createElement('div');
                     botMsgDiv.className = "flex space-x-3 max-w-[85%]";
-                    
+
                     let citationHtml = '';
                     if (data.obras_citadas && data.obras_citadas.length > 0) {
                         citationHtml = `
@@ -1101,16 +1348,31 @@
         // ==========================================
         async function loadLivros() {
             const query = document.getElementById('search-livros').value.trim();
-            const endpoint = query ? `/livros/?q=${encodeURIComponent(query)}` : '/livros/';
-            
+            const pageSize = document.getElementById('livros-page-size')?.value || 10;
+            let endpoint = `/livros/?page=${livrosPage}&page_size=${pageSize}`;
+            if (query) {
+                endpoint += `&q=${encodeURIComponent(query)}`;
+            }
+
             try {
                 const res = await apiFetch(endpoint);
                 if (res.ok) {
                     const data = await res.json();
-                    const rows = data.results || data;
+                    const isPaginated = (data.results !== undefined);
+                    const rows = isPaginated ? data.results : data;
+                    const count = isPaginated ? data.count : rows.length;
+                    const totalPages = isPaginated ? Math.ceil(count / pageSize) : 1;
+
+                    document.getElementById('livros-count').textContent = count;
+                    document.getElementById('livros-current-page').textContent = livrosPage;
+                    document.getElementById('livros-total-pages').textContent = totalPages;
+
+                    document.getElementById('btn-livros-prev').disabled = (livrosPage <= 1);
+                    document.getElementById('btn-livros-next').disabled = (livrosPage >= totalPages);
+
                     const tbody = document.getElementById('table-livros-body');
                     tbody.innerHTML = '';
-                    
+
                     if (rows.length === 0) {
                         tbody.innerHTML = `
                             <tr>
@@ -1123,7 +1385,7 @@
                     rows.forEach(b => {
                         const tr = document.createElement('tr');
                         tr.className = "hover:bg-indigo-50/30 dark:hover:bg-white/5 border-b border-gray-200 dark:border-white/5 transition-all";
-                        
+
                         let tipoText = "Bibliografia";
                         if (b.tipo_obra === 'TESE_DISSERTACAO') tipoText = "Tese/Dissertação";
                         if (b.tipo_obra === 'MONOGRAFIA') tipoText = "Monografia";
@@ -1151,6 +1413,11 @@
                 console.error(err);
                 showToast("Erro ao carregar livros.", "error");
             }
+        }
+
+        function changeLivrosPage(offset) {
+            livrosPage += offset;
+            loadLivros();
         }
 
         // Submit Livro Form (Create or Update)
@@ -1206,7 +1473,7 @@
                     document.getElementById('livro-ano').value = b.ano || '';
                     document.getElementById('livro-total').value = b.exemplares_total;
                     document.getElementById('livro-disp').value = b.exemplares_disponiveis;
-                    
+
                     document.getElementById('modal-livro-title').textContent = "Editar Obra";
                     document.getElementById('modal-livro').classList.remove('hidden');
                 }
@@ -1236,11 +1503,23 @@
         // 3. CRUD DE PESSOAS
         // ==========================================
         async function loadPessoas() {
+            const pageSize = document.getElementById('pessoas-page-size')?.value || 10;
             try {
-                const res = await apiFetch('/pessoas/');
+                const res = await apiFetch(`/pessoas/?page=${pessoasPage}&page_size=${pageSize}`);
                 if (res.ok) {
                     const data = await res.json();
-                    const rows = data.results || data;
+                    const isPaginated = (data.results !== undefined);
+                    const rows = isPaginated ? data.results : data;
+                    const count = isPaginated ? data.count : rows.length;
+                    const totalPages = isPaginated ? Math.ceil(count / pageSize) : 1;
+
+                    document.getElementById('pessoas-count').textContent = count;
+                    document.getElementById('pessoas-current-page').textContent = pessoasPage;
+                    document.getElementById('pessoas-total-pages').textContent = totalPages;
+
+                    document.getElementById('btn-pessoas-prev').disabled = (pessoasPage <= 1);
+                    document.getElementById('btn-pessoas-next').disabled = (pessoasPage >= totalPages);
+
                     const tbody = document.getElementById('table-pessoas-body');
                     tbody.innerHTML = '';
 
@@ -1256,9 +1535,9 @@
                     rows.forEach(p => {
                         const tr = document.createElement('tr');
                         tr.className = "hover:bg-indigo-50/30 dark:hover:bg-white/5 border-b border-gray-200 dark:border-white/5 transition-all";
-                        
-                        const roleColor = p.funcao === 'Bibliotecario' 
-                            ? 'text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10' 
+
+                        const roleColor = p.funcao === 'Bibliotecario'
+                            ? 'text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-500/10'
                             : 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10';
 
                         tr.innerHTML = `
@@ -1287,6 +1566,11 @@
                 console.error(err);
                 showToast("Erro ao carregar pessoas.", "error");
             }
+        }
+
+        function changePessoasPage(offset) {
+            pessoasPage += offset;
+            loadPessoas();
         }
 
         document.getElementById('form-pessoa').addEventListener('submit', async (e) => {
@@ -1369,11 +1653,23 @@
         // 4. GESTÃO DE EMPRÉSTIMOS
         // ==========================================
         async function loadEmprestimos() {
+            const pageSize = document.getElementById('emprestimos-page-size')?.value || 10;
             try {
-                const res = await apiFetch('/emprestimos/');
+                const res = await apiFetch(`/emprestimos/?page=${emprestimosPage}&page_size=${pageSize}`);
                 if (res.ok) {
                     const data = await res.json();
-                    const rows = data.results || data;
+                    const isPaginated = (data.results !== undefined);
+                    const rows = isPaginated ? data.results : data;
+                    const count = isPaginated ? data.count : rows.length;
+                    const totalPages = isPaginated ? Math.ceil(count / pageSize) : 1;
+
+                    document.getElementById('emprestimos-count').textContent = count;
+                    document.getElementById('emprestimos-current-page').textContent = emprestimosPage;
+                    document.getElementById('emprestimos-total-pages').textContent = totalPages;
+
+                    document.getElementById('btn-emprestimos-prev').disabled = (emprestimosPage <= 1);
+                    document.getElementById('btn-emprestimos-next').disabled = (emprestimosPage >= totalPages);
+
                     const tbody = document.getElementById('table-emprestimos-body');
                     tbody.innerHTML = '';
 
@@ -1389,7 +1685,7 @@
                     rows.forEach(e => {
                         const tr = document.createElement('tr');
                         tr.className = "hover:bg-indigo-50/30 dark:hover:bg-white/5 border-b border-gray-200 dark:border-white/5 transition-all";
-                        
+
                         let statusBadge = '';
                         if (e.status === 'DEVOLVIDO') {
                             statusBadge = `<span class="px-2 py-0.5 rounded text-xs font-semibold bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/15">Devolvido</span>`;
@@ -1400,7 +1696,7 @@
                         }
 
                         const devReal = e.data_devolucao_real || '-';
-                        
+
                         let actionsHtml = '-';
                         if (!e.data_devolucao_real) {
                             actionsHtml = `
@@ -1426,6 +1722,11 @@
             }
         }
 
+        function changeEmprestimosPage(offset) {
+            emprestimosPage += offset;
+            loadEmprestimos();
+        }
+
         // Devolução rápida
         async function devolverLivro(id) {
             if (!confirm("Deseja confirmar a devolucao desta obra hoje?")) return;
@@ -1435,7 +1736,7 @@
                 const getRes = await apiFetch(`/emprestimos/${id}/`);
                 if (getRes.ok) {
                     const eObj = await getRes.json();
-                    
+
                     const payload = {
                         livro: eObj.livro,
                         leitor: eObj.leitor,
@@ -1466,7 +1767,7 @@
             e.preventDefault();
             const livro = document.getElementById('emp-book').value;
             const leitor = document.getElementById('emp-leitor').value;
-            
+
             const errorBox = document.getElementById('error-emprestimo-modal');
             errorBox.classList.add('hidden');
 
@@ -1500,7 +1801,7 @@
                 document.getElementById('error-livro-modal').classList.add('hidden');
                 document.getElementById('modal-livro-title').textContent = "Adicionar Obra";
                 document.getElementById('modal-livro').classList.remove('hidden');
-            } 
+            }
             else if (type === 'pessoa') {
                 document.getElementById('pessoa-id').value = '';
                 document.getElementById('form-pessoa').reset();
@@ -1525,9 +1826,9 @@
                 leitorSelect.innerHTML = '<option value="">Aguarde...</option>';
 
                 // Get Livros
-                const booksRes = await apiFetch('/livros/');
+                const booksRes = await apiFetch('/livros/?page_size=1000');
                 // Get Leitores (Pessoas com funcao='Leitor')
-                const pessoasRes = await apiFetch('/pessoas/');
+                const pessoasRes = await apiFetch('/pessoas/?page_size=1000');
 
                 if (booksRes.ok && pessoasRes.ok) {
                     const books = (await booksRes.json()).results || [];
@@ -1557,4 +1858,5 @@
         }
     </script>
 </body>
+
 </html>

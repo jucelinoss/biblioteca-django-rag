@@ -155,7 +155,7 @@ Mostrar rapidamente (se sobrar tempo) o diagrama de arquitetura do `README.md` r
 
 ## Checklist final (noite anterior)
 
-- [ ] `db.sqlite3` com seed atualizado (`python manage.py shell < seed.py`)
+- [ ] `db.sqlite3` com seed atualizado (`python manage.py shell < util/seed.py`)
 - [ ] Embeddings gerados (`python manage.py gerar_embeddings --force`)
 - [ ] `.env` com `GROQ_API_KEY` válida (testar 1 pergunta antes)
 - [ ] Navegador com 2 abas pré-abertas: `/` e `/livro/`

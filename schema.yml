@@ -25,7 +25,7 @@ paths:
               $ref: '#/components/schemas/TokenObtainPair'
         required: true
       security:
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -54,7 +54,7 @@ paths:
               $ref: '#/components/schemas/TokenRefresh'
         required: true
       security:
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -65,19 +65,24 @@ paths:
   /api/v1/emprestimos/:
     get:
       operationId: emprestimos_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
       tags:
       - emprestimos
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Emprestimo'
+                $ref: '#/components/schemas/PaginatedEmprestimoList'
           description: ''
     post:
       operationId: emprestimos_create
@@ -97,7 +102,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '201':
           content:
@@ -119,7 +124,7 @@ paths:
       - emprestimos
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -152,7 +157,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -184,7 +189,7 @@ paths:
               $ref: '#/components/schemas/PatchedEmprestimo'
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -205,7 +210,7 @@ paths:
       - emprestimos
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '204':
           description: No response body
@@ -231,7 +236,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -261,7 +266,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -272,19 +277,24 @@ paths:
   /api/v1/livros/:
     get:
       operationId: livros_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
       tags:
       - livros
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Livro'
+                $ref: '#/components/schemas/PaginatedLivroList'
           description: ''
     post:
       operationId: livros_create
@@ -304,7 +314,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '201':
           content:
@@ -326,7 +336,7 @@ paths:
       - livros
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -359,7 +369,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -391,7 +401,7 @@ paths:
               $ref: '#/components/schemas/PatchedLivro'
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -412,26 +422,31 @@ paths:
       - livros
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '204':
           description: No response body
   /api/v1/pessoas/:
     get:
       operationId: pessoas_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: Um número de página dentro do conjunto de resultados paginado.
+        schema:
+          type: integer
       tags:
       - pessoas
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pessoa'
+                $ref: '#/components/schemas/PaginatedPessoaList'
           description: ''
     post:
       operationId: pessoas_create
@@ -451,7 +466,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '201':
           content:
@@ -473,7 +488,7 @@ paths:
       - pessoas
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -506,7 +521,7 @@ paths:
         required: true
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -538,7 +553,7 @@ paths:
               $ref: '#/components/schemas/PatchedPessoa'
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '200':
           content:
@@ -559,7 +574,7 @@ paths:
       - pessoas
       security:
       - jwtAuth: []
-      - jwt: []
+      - jwtAuth: []
       responses:
         '204':
           description: No response body
@@ -690,6 +705,75 @@ components:
       required:
       - id
       - titulo
+    PaginatedEmprestimoList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emprestimo'
+    PaginatedLivroList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Livro'
+    PaginatedPessoaList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pessoa'
     PatchedEmprestimo:
       type: object
       properties:

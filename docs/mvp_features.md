@@ -398,7 +398,7 @@ pip install -r requirements.txt
 
 # 2. Migrar e popular
 python manage.py migrate
-python manage.py shell < seed.py
+python manage.py shell < util/seed.py
 python manage.py gerar_embeddings --force
 
 # 3. Rodar testes automatizados

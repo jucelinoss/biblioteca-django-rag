@@ -22,6 +22,9 @@ def index(request):
         if user is not None:
             login(request, user)
             return redirect('menu_alias')
+        else:
+            from django.contrib import messages
+            messages.error(request, 'Usuário ou senha incorretos.')
     return render(request, 'core/index.html')
 
 

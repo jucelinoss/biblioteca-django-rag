@@ -53,3 +53,6 @@ proposta/_docx_build.tex
 # Recursos locais (não versionar)
 reunioes_requisitos/
 /templates/
+/.gemini
+/.agents
+/.claude

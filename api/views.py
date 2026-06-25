@@ -22,16 +22,27 @@ from .permissions import IsBibliotecarioOrReadOnly
 from drf_spectacular.utils import extend_schema
 
 
+from rest_framework.pagination import PageNumberPagination
+
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
+
 class PessoaViewSet(viewsets.ModelViewSet):
     queryset = pessoa.objects.all()
     serializer_class = PessoaSerializer
     permission_classes = [IsBibliotecarioOrReadOnly]
+    pagination_class = StandardResultsSetPagination
 
 
 class LivroViewSet(viewsets.ModelViewSet):
     queryset = livro.objects.all()
     serializer_class = LivroSerializer
     permission_classes = [IsBibliotecarioOrReadOnly]
+    pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -45,6 +56,7 @@ class EmprestimoViewSet(viewsets.ModelViewSet):
     queryset = emprestimo.objects.all()
     serializer_class = EmprestimoSerializer
     permission_classes = [IsBibliotecarioOrReadOnly]
+    pagination_class = StandardResultsSetPagination
 
 
 class RecomendacaoIAView(APIView):
