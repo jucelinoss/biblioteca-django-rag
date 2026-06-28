@@ -13,6 +13,9 @@ from recomendador.chat.interface import RespostaChat
 class BibliotecaApiTests(APITestCase):
 
     def setUp(self):
+        import logging
+        logging.disable(logging.WARNING)
+
         # Criar grupo de Bibliotecários
         self.grupo_bibliotecario = Group.objects.create(name='Bibliotecario')
 
@@ -80,7 +83,7 @@ class BibliotecaApiTests(APITestCase):
         response = self.client.post(url, {'username': username, 'password': password}, format='json')
         return response.data
 
-    def test_auth_login_jwt(self):
+    def test_01_auth_login_jwt(self):
         """Testa a obtenção do token JWT e o refresh"""
         tokens = self.get_tokens('leitor', 'password123')
         self.assertIn('access', tokens)
@@ -92,7 +95,7 @@ class BibliotecaApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('access', response.data)
 
-    def test_auth_login_jwt_failed(self):
+    def test_02_auth_login_jwt_failed(self):
         """Testa que a obtenção de token falha com credenciais incorretas e não gera token"""
         url = reverse('token_obtain_pair')
         
@@ -106,7 +109,7 @@ class BibliotecaApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertNotIn('access', response.data)
 
-    def test_livros_crud_permissions(self):
+    def test_03_livros_crud_permissions(self):
         """Testa se o leitor comum só tem acesso a leitura (GET) e o bibliotecário pode criar (POST)"""
         # --- Cenário 1: Leitor (Apenas GET)
         tokens_leitor = self.get_tokens('leitor', 'password123')
@@ -135,7 +138,7 @@ class BibliotecaApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(livro.objects.filter(titulo="Novo Livro").count(), 1)
 
-    def test_emprestimo_flow_and_validation(self):
+    def test_04_emprestimo_flow_and_validation(self):
         """Testa criação de empréstimo, decremento de estoque e erro ao esgotar"""
         tokens_biblio = self.get_tokens('bibliotecario', 'password123')
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + tokens_biblio['access'])
@@ -166,7 +169,7 @@ class BibliotecaApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("error", response.data)
 
-    def test_ia_recomendacao_endpoint(self):
+    def test_05_ia_recomendacao_endpoint(self):
         """Testa a rota de recomendação de IA e a gravação de logs"""
         tokens_leitor = self.get_tokens('leitor', 'password123')
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + tokens_leitor['access'])
@@ -187,7 +190,7 @@ class BibliotecaApiTests(APITestCase):
         self.assertEqual(logs.count(), 1)
         self.assertEqual(logs.first().usuario, self.leitor_user)
 
-    def test_pessoa_celular_validation(self):
+    def test_06_pessoa_celular_validation(self):
         """Testa se a validação de celular do leitor está funcionando no serializer"""
         tokens_biblio = self.get_tokens('bibliotecario', 'password123')
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + tokens_biblio['access'])
@@ -216,7 +219,7 @@ class BibliotecaApiTests(APITestCase):
         response = self.client.post(url, payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_livro_isbn_validation(self):
+    def test_07_livro_isbn_validation(self):
         """Testa se a validação técnica do ISBN está funcionando no serializer"""
         tokens_biblio = self.get_tokens('bibliotecario', 'password123')
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + tokens_biblio['access'])
@@ -253,7 +256,7 @@ class BibliotecaApiTests(APITestCase):
         response = self.client.post(url, payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_ia_recomendacao_validation(self):
+    def test_08_ia_recomendacao_validation(self):
         """Testa validação de parâmetros na API de Recomendação"""
         tokens_leitor = self.get_tokens('leitor', 'password123')
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + tokens_leitor['access'])
@@ -280,7 +283,7 @@ class BibliotecaApiTests(APITestCase):
         response = self.client.post(url, payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_ia_chat_validation(self):
+    def test_09_ia_chat_validation(self):
         """Testa validação de perguntas na API do Chat RAG"""
         tokens_leitor = self.get_tokens('leitor', 'password123')
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + tokens_leitor['access'])
@@ -306,7 +309,7 @@ class BibliotecaApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     @patch('api.views.responder_pergunta')
-    def test_ia_chat_endpoint_success(self, mock_responder):
+    def test_10_ia_chat_endpoint_success(self, mock_responder):
         """Testa o sucesso do endpoint de Chat RAG da IA com mock e a gravação de logs"""
         mock_responder.return_value = RespostaChat(
             texto="Segundo o acervo, a obra 'Livro Teste A' (Obra #1) trata de programação.",
@@ -329,7 +332,7 @@ class BibliotecaApiTests(APITestCase):
         self.assertEqual(logs.count(), 1)
         self.assertEqual(logs.first().usuario, self.leitor_user)
 
-    def test_livro_crud_full(self):
+    def test_11_livro_crud_full(self):
         """Testa o CRUD completo de livros e permissões associadas"""
         # Obter tokens
         tokens_biblio = self.get_tokens('bibliotecario', 'password123')
@@ -373,7 +376,7 @@ class BibliotecaApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(livro.objects.filter(pk=self.livro1.id).exists())
 
-    def test_pessoa_crud_full(self):
+    def test_12_pessoa_crud_full(self):
         """Testa o CRUD completo de Pessoas (leitores/bibliotecários) e permissões"""
         tokens_biblio = self.get_tokens('bibliotecario', 'password123')
         tokens_leitor = self.get_tokens('leitor', 'password123')
@@ -420,7 +423,7 @@ class BibliotecaApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(pessoa.objects.filter(pk=self.leitor_pessoa.id).exists())
 
-    def test_emprestimo_crud_full(self):
+    def test_13_emprestimo_crud_full(self):
         """Testa o CRUD completo e ciclo de devolução dos Empréstimos"""
         tokens_biblio = self.get_tokens('bibliotecario', 'password123')
         tokens_leitor = self.get_tokens('leitor', 'password123')

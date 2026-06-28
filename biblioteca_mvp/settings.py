@@ -8,12 +8,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Carrega variaveis do .env (gitignored) ANTES de ler qualquer chave
 load_dotenv(BASE_DIR / '.env')
 
+import sys
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+
 # SECRET_KEY: lida do .env. O fallback existe apenas para desenvolvimento local;
 # em qualquer ambiente compartilhado, defina DJANGO_SECRET_KEY no .env.
 SECRET_KEY = os.getenv(
     'DJANGO_SECRET_KEY',
     'django-insecure-biblioteca-mvp-dev-only-change-in-production-abc456',
 )
+if TESTING:
+    SECRET_KEY = 'chave-longa-e-segura-de-teste-para-evitar-avisos-do-pyjwt-123456789'
 
 # DEBUG: desligado por padrão. Ative com DJANGO_DEBUG=true no .env (dev).
 DEBUG = os.getenv('DJANGO_DEBUG', 'False').strip().lower() in ('1', 'true', 'yes', 'on')
@@ -40,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 RECOMENDADOR_MODEL = 'paraphrase-multilingual-MiniLM-L12-v2'
-RECOMENDADOR_MOCK = False  # True = gera embeddings aleatorios (para CI / sem rede)
+RECOMENDADOR_MOCK = TESTING or (os.getenv('RECOMENDADOR_MOCK', 'False').strip().lower() in ('1', 'true', 'yes', 'on'))
 
 # Chat RAG — lidos do .env via python-dotenv (ver biblioteca_mvp/.env)
 GROQ_API_KEY = os.getenv('GROQ_API_KEY', '')

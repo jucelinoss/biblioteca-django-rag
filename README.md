@@ -286,30 +286,44 @@ python manage.py shell < util/seed.py
 
 ---
 
-## Testes
+## Testes e Validação da API
 
-### Testes unitários (Django test)
+> [!IMPORTANT]
+> Todos os comandos descritos nesta seção devem ser executados **a partir do diretório raiz do projeto (`biblioteca-django-rag`)**, com o ambiente virtual `.venv` ativo no seu terminal.
+
+A aplicação conta com uma suíte de testes unitários do próprio Django e com um script em Python de integração em tempo real que valida o ecossistema da API.
+
+### 1. Testes Unitários e de Integração (Django Test)
+Nós desenvolvemos uma suíte automatizada composta por **13 testes de integração** (`APITestCase`) dedicados a validar a segurança, expiração de tokens, controle de acessos do JWT e integridade dos endpoints REST.
+
+Para executar especificamente esses 13 testes de forma verbosa (exibindo o nome de cada teste e seu status `ok` um a um no terminal):
 ```bash
-python manage.py test recomendador
-# 9 tests, ~32ms, usando RECOMENDADOR_MOCK=True (vetores determinísticos, sem rede)
+# Execute no diretório 'biblioteca-django-rag'
+python manage.py test api -v 2
+```
+*Esta suíte com 13 testes valida as regras de negócio de celular/ISBN, a dedução de estoque e as permissões de leitura do leitor vs. escrita do bibliotecário, retornando o status detalhado de cada teste de forma limpa.*
+
+### 2. Script de Validação de Ponta a Ponta (Manual/Automatizado)
+Para demonstrar e testar todas as rotas documentadas no Swagger/Postman, desenvolvemos o script [testar_api.py](file:///d:/Estudos/Pos_Agentes/Disciplinas/2_FrameworkWeb/trabalho%20disciplina/biblioteca-django-rag/tests/testar_api.py) no diretório de testes. Ele executa requisições HTTP reais simulando diversos cenários.
+
+**Pré-requisito:** O servidor local do Django deve estar rodando em uma janela do terminal:
+```bash
+python manage.py runserver
 ```
 
-### Testes de regra de negócio (shell)
+**Para executar o script de teste:**
 ```bash
-python -c "
-import django, os
-os.environ['DJANGO_SETTINGS_MODULE']='biblioteca_mvp.settings'
-django.setup()
-from core.models import livro, emprestimo, pessoa
-# ... (ver docs/seguranca_chat.md seção 7)
-"
+# Abra outro terminal no diretório 'biblioteca-django-rag', ative o ambiente virtual e execute:
+python tests/testar_api.py
 ```
-
-### Testes adversariais do chat
-```bash
-# 7 cenários de ataque → todos recusados corretamente
-# ver docs/seguranca_chat.md seção 7 para script completo
-```
+O script realizará as seguintes ações sequenciais no terminal:
+1. **Segurança JWT:** Simula chamadas não autorizadas para garantir a resposta `401 Unauthorized`.
+2. **Login & Refresh:** Efetua login com credenciais administrativas, obtém tokens de acesso e atualiza chaves via Refresh Token.
+3. **Esquema OpenAPI:** Realiza download do arquivo de definição gerado pelo `drf-spectacular`.
+4. **Validação de Cadastro:** Tenta inserir um usuário com celular incorreto e um livro com ISBN inválido (garantindo o retorno HTTP 400), e em seguida insere registros com dados válidos.
+5. **Ciclo de Empréstimo:** Cria um empréstimo do livro cadastrado, valida o decremento automático no estoque de exemplares disponíveis, realiza a devolução real da obra e valida o incremento do estoque.
+6. **IA & RAG:** Envia requisições de recomendação semântica cosseno e interações com o Chat RAG.
+7. **Limpeza Geral:** Executa a exclusão de todos os dados temporários gerados no bloco `finally`, mantendo o banco de dados íntegro.
 
 ---
 
